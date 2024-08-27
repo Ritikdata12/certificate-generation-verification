@@ -1,0 +1,89 @@
+.App {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .form input {
+    padding: 8px;
+    margin-right: 10px;
+    width: 300px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .certificate-details {
+    margin-top: 20px;
+    text-align: left;
+    display: inline-block;
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .certificate-details p {
+    margin: 10px 0;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .certificate-preview {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+  }
+  
+  .certificate-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .certificate-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .certificate-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    position: absolute;
+    top: 120px; /* Adjust this according to your template */
+  }
+  
+  .certificate-domain {
+    font-size: 18px;
+    color: #000;
+    position: absolute;
+    top: 140px; /* Adjust this according to your template */
+  }
+  
+  .certificate-dates {
+    font-size: 16px;
+    color: #000;
+    position: absolute;
+    top: 170px; /* Adjust this according to your template */
+  }
+  
