@@ -40,14 +40,14 @@ async function createTransporter() {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: process.env.service,
     auth: {
-        type: "OAuth2",
+        type: process.env.type,
         user: process.env.ADMIN_EMAIL,
         pass: process.env.ADMIN_PASSWORD,
-        clientId: '244902327286-d53up5gtre5oh9ske3dkjve4u8np8b3d.apps.googleusercontent.com',
-        clientSecret: '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',
-        refreshToken:'1//04MQRSYXI5cxOCgYIARAAGAQSNwF-L9Irn0cjL-S6HaHAOSYD0DcfY5aVeaqi4CiO68TwwQ8e8WyASBhZ8SQ-G1kA6VZWwZAX9sY',
+        clientId: process.env.clientId,
+        clientSecret: process.env.clientSecret,
+        refreshToken: process.env.refreshToken,
     },
 })
 
