@@ -40,9 +40,9 @@ async function createTransporter() {
   }
 
   const transporter = nodemailer.createTransport({
-    service: process.env.service,
+    service: 'gmail',
     auth: {
-        type: process.env.type,
+        type: 'OAuth2',
         user: process.env.ADMIN_EMAIL,
         pass: process.env.ADMIN_PASSWORD,
         clientId: process.env.clientId,
