@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
+const {encrypt , decrypt} = require("../controllers/Encryption")
 
-const CertificateSchema = new mongoose.Schema({
-  certificateId: { type: String, required: true, unique: true },
-  studentName: { type: String, required: true },
-  internshipDomain: { type: String, required: true },
-  startDate: { type: Date, required: true },
-  endDate: { type: Date, required: true },
+const certificateSchema = new mongoose.Schema({
+    certificateId: { type: String, required: true, unique: true },
+    studentName: { type: String, required: true },
+    internshipDomain: { type: String, required: true },
+    email: {type: String, required: true},
+    startDate: { type: Date, required: true },
+    endDate: { type: Date, required: true }
 });
 
-module.exports = mongoose.model('certificate', CertificateSchema);
-
-
+module.exports = mongoose.model('Certificate', certificateSchema);

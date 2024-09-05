@@ -1,10 +1,15 @@
-// AdminDashboard.js
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
+import Tables from './Tables';
+import Header from './Header';
+import Footer from './Footer';
+import Sidebar from './Sidebar';
 
 function AdminDashboard() {
   const [file, setFile] = useState(null);
   const [logs, setLogs] = useState([]);
+  const inputRef = useRef(null)
+
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
@@ -32,17 +37,35 @@ function AdminDashboard() {
   };
 
   return (
-    <div>
-      <h2>Admin Dashboard</h2>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={uploadFile}>Upload File</button>
-      <button onClick={fetchLogs}>View Logs</button>
-      <ul>
-        {logs.map((log, index) => (
-          <li key={index}>{log.timestamp} - {log.fileName} - {log.status}</li>
-        ))}
-      </ul>
+    <>
+    <Header/>
+    <div style={{ width: "100%", minHeight: "100vh", overflowY: 'auto', padding: '20px' , marginTop: '100px' }}>
+      <h2 style={{ textAlign: "center", marginBottom: "2rem"}}>Admin Dashboard</h2>
+      <div style={{ width: "100%", flexFlow: "column", display: "flex", alignItems: "center"}}>
+        <div className='input-box' onClick={() => inputRef.current.click()}>
+          upload files
+        </div>
+        <input hidden ref={inputRef} type="file" onChange={handleFileChange} />
+        <div>
+
+        <button onClick={uploadFile}>Upload File</button>
+        </div>
+      </div>
+
+   
+
+      {/* <div style={{ height: '400px', marginTop: '20px' , display: 'flex' }}> */}
+        <Sidebar/>
+        {/* <Tables />
+      </div> */}
+
+      <div style={{marginTop: '50px'}}>
+        <Footer/>
+      </div>
+
+
     </div>
+    </>
   );
 }
 

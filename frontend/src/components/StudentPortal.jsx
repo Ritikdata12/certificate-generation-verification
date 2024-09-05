@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
-import certificateTemplate from '../assets/certificate-template.png'; // Import your certificate template
+import certificateTemplate from '../assets/certificate-template.png'; 
 import './StudentPortal.css';
 
 function StudentPortal() {
   const [certificateId, setCertificateId] = useState('');
   const [certificateDetails, setCertificateDetails] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false); 
+  const [verificationStatus, setVerificationStatus] = useState(''); // New state for verification status
 
   const coordinates = {
-    name: { x: 370, y: 215 },
-    domain: { x: 255, y: 323 },
-    startDate: { x: 255, y: 345 },
-    endDate: { x: 425, y: 345 },
+    name: { x: 370, y: 230 },
+    domain: { x: 250, y: 338 },
+    startDate: { x: 255, y: 360 },
+    endDate: { x: 425, y: 360 },
   };
 
   const handleInputChange = (e) => {
@@ -22,17 +24,23 @@ function StudentPortal() {
   const handleSearch = async () => {
     setErrorMessage('');
     setCertificateDetails(null);
+    setLoading(true); 
 
     try {
-      const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
-      const data = await response.json();
+      setTimeout(async () => {
+        const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
+        const data = await response.json();
 
-      if (response.ok) {
-        setCertificateDetails(data);
-      } else {
-        setErrorMessage(data.message || 'Certificate not found.');
-      }
+        setLoading(false); 
+
+        if (response.ok) {
+          setCertificateDetails(data);
+        } else {
+          setErrorMessage(data.message || 'Certificate not found.');
+        }
+      }, 3000); 
     } catch (error) {
+      setLoading(false);
       setErrorMessage('Error fetching certificate details.');
     }
   };
@@ -47,15 +55,42 @@ function StudentPortal() {
 
       if (certificateDetails) {
         doc.setFontSize(24);
-        doc.text(certificateDetails.studentName, 109, 120, { align: 'center' }); // Name position
+        doc.text(certificateDetails.studentName, 109, 120, { align: 'center' }); 
         doc.setFontSize(16);
-        doc.text(certificateDetails.internshipDomain, 105, 140, { align: 'center' }); // Internship domain position
-        doc.text(new Date(certificateDetails.startDate).toDateString(), 60, 170); // Start Date position
-        doc.text(new Date(certificateDetails.endDate).toDateString(), 145, 170); // End Date position
+        doc.text(certificateDetails.internshipDomain, 105, 140, { align: 'center' }); 
+        doc.text((certificateDetails.startDate), 60, 170); 
+        doc.text((certificateDetails.endDate), 145, 170); 
       }
 
       doc.save(`${certificateId}.pdf`);
     };
+  };
+
+  const handleVerify = async () => {
+    setVerificationStatus(''); // Reset verification status
+    setErrorMessage('');
+    setLoading(true);
+
+    // Simulate delay of 5 seconds for verification process
+    setTimeout(async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/user/verify/${certificateId}`);
+        const data = await response.json();
+
+        setLoading(false);
+
+        if (response.ok) {
+          setVerificationStatus('success');
+        } else {
+          setVerificationStatus('failed');
+          setErrorMessage(data.message || 'Verification failed.');
+        }
+      } catch (error) {
+        setLoading(false);
+        setVerificationStatus('failed');
+        setErrorMessage('Error during verification.');
+      }
+    }, 5000); // Delay of 5 seconds
   };
 
   return (
@@ -70,6 +105,8 @@ function StudentPortal() {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
+
+      {loading && <div className="loader"></div>} 
 
       {errorMessage && <p className="error">{errorMessage}</p>}
 
@@ -130,6 +167,13 @@ function StudentPortal() {
           </div>
 
           <button onClick={handleDownload}>Download Certificate as PDF</button>
+          <button onClick={handleVerify} className={`verify-button ${verificationStatus}`}>Verify Certificate</button>
+
+          {verificationStatus && (
+            <p className={`verification-message ${verificationStatus}`}>
+              {verificationStatus === 'success' ? 'Verification Successful!' : 'Verification Failed'}
+            </p>
+          )}
         </>
       )}
     </div>

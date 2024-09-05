@@ -59,4 +59,39 @@ router.get("/user-details", async (req, res) => {
     }
 });
 
+router.post("/login", (req, res) => {
+    const { email, password } = req.body;
+    UserModel1.findOne({ email: email })
+        .then(user => {
+            if (user) {
+                bcrypt.compare(password, user.password, (err, response) => {
+                    if (response) {
+                        const token = jwt.sign(
+                            { email: user.email, username: user.username },
+                            "jwt-secret-key",
+                            { expiresIn: "1d" }
+                        );
+                        res.cookie('token', token);
+                        return res.json({ status: "success" });
+                    } else {
+                        return res.json("password is incorrect");
+                    }
+                });
+            } else {
+                res.json("this email id is not registered");
+            }
+        })
+        .catch(err => res.json(err));
+});
+
+router.get("/get_login", (req, res) => {
+    UserModel1.find({})
+        .then(function(users) {
+            res.json(users);
+        })
+        .catch(function(err) {
+            res.json(err);
+        });
+});
+
 module.exports = router;

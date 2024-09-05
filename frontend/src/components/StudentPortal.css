@@ -86,4 +86,96 @@
     position: absolute;
     top: 170px; /* Adjust this according to your template */
   }
-  
+  /* StudentPortal.css */
+.verify-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.verify-button:hover {
+  transform: scale(1.05);
+}
+
+.verification-message {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  animation: fadeIn 0.5s;
+}
+
+.verification-message.success {
+  color: green;
+}
+
+.verification-message.failed {
+  color: red;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+ /* Loader styles */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 64px;
+  aspect-ratio: 1;
+  background: 
+    radial-gradient(farthest-side at bottom right,#F10C49 90%,#0000),
+    radial-gradient(farthest-side at bottom left ,#F10C49 90%,#0000),
+    radial-gradient(farthest-side at top    right,#F10C49 90%,#0000),
+    radial-gradient(farthest-side at top    left ,#F10C49 90%,#0000),
+    radial-gradient(farthest-side at bottom right,#f4dd51 90%,#0000),
+    radial-gradient(farthest-side at bottom left ,#f4dd51 90%,#0000),
+    radial-gradient(farthest-side at top    right,#f4dd51 90%,#0000),
+    radial-gradient(farthest-side at top    left ,#f4dd51 90%,#0000),
+    radial-gradient(farthest-side at bottom right,#e3aad6 90%,#0000),
+    radial-gradient(farthest-side at bottom left ,#e3aad6 90%,#0000),
+    radial-gradient(farthest-side at top    right,#e3aad6 90%,#0000),
+    radial-gradient(farthest-side at top    left ,#e3aad6 90%,#0000);
+  background-size: 25% 25%;
+  background-repeat: no-repeat;
+  animation: l16 2s infinite;
+}
+@keyframes l16{
+  0% {background-position: 
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3)}
+  16.67% {background-position: 
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3)}
+  33.33% {background-position: 
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3),
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3)}
+  50% {background-position: 
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3),
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3),
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3)}
+  66.67% {background-position: 
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3),
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3)}
+  83.33% {background-position: 
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(0*100%/3) calc(0*100%/3), calc(3*100%/3) calc(0*100%/3), calc(0*100%/3) calc(3*100%/3), calc(3*100%/3) calc(3*100%/3)}
+  100% {background-position: 
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3),
+        calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3)}
+}

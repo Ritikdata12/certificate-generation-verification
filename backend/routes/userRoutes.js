@@ -4,6 +4,7 @@ const router = express.Router();
 const path = require('path');
 const fs = require('fs');
 const { generatePDF } = require("../controllers/userController");
+const { decrypt, encrypt } = require("../controllers/Encryption");
 
 
 router.get('/certificate/:certificateId', async (req, res) => {
@@ -11,13 +12,21 @@ router.get('/certificate/:certificateId', async (req, res) => {
 
   try {
     console.log(`Fetching certificate with ID: ${certificateId}`);
-
-    const certificate = await Certificate.findOne({ certificateId });
+    let certificate = await Certificate.findOne({ certificateId: (certificateId) });
 
     if (!certificate) {
       console.log(`Certificate not found with ID: ${certificateId}`);
       return res.status(404).json({ message: 'Certificate not found' });
     }
+
+    console.log("CERTIFICATE", certificate)
+    certificate = {
+      certificateId: (certificate.certificateId),
+      studentName: decrypt(certificate.studentName),
+      internshipDomain: decrypt(certificate.internshipDomain),
+      startDate: (certificate.startDate),
+      endDate: (certificate.endDate),
+  }
 
     console.log(`Certificate found: ${JSON.stringify(certificate)}`);
 
