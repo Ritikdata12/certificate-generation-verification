@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
 import certificateTemplate from '../assets/certificate-template.png'; 
 import './StudentPortal.css';
+import Footer from './Footer';
+import Header from './Header';
+import {QRCodeSVG} from 'qrcode.react';
 
 function StudentPortal() {
   const [certificateId, setCertificateId] = useState('');
@@ -67,11 +70,10 @@ function StudentPortal() {
   };
 
   const handleVerify = async () => {
-    setVerificationStatus(''); // Reset verification status
+    setVerificationStatus(''); 
     setErrorMessage('');
     setLoading(true);
 
-    // Simulate delay of 5 seconds for verification process
     setTimeout(async () => {
       try {
         const response = await fetch(`http://localhost:5000/api/user/verify/${certificateId}`);
@@ -90,11 +92,15 @@ function StudentPortal() {
         setVerificationStatus('failed');
         setErrorMessage('Error during verification.');
       }
-    }, 5000); // Delay of 5 seconds
+    }, 5000); 
   };
 
+  const certificateVerificationUrl = `http://localhost:5000/api/user/certificate/${certificateId}`
+  
   return (
-    <div className="App">
+    <>
+    <Header/>
+    <div className="App" style={{marginTop: "100px", height: "1000px" , background: "white"}}>
       <h1>Certificate Verification</h1>
       <div className="form">
         <input
@@ -106,7 +112,12 @@ function StudentPortal() {
         <button onClick={handleSearch}>Search</button>
       </div>
 
-      {loading && <div className="loader"></div>} 
+      {loading && (
+        <div className="loader-wrapper">
+          <div className="loader"></div>
+        </div>
+      )}
+        
 
       {errorMessage && <p className="error">{errorMessage}</p>}
 
@@ -165,6 +176,12 @@ function StudentPortal() {
               </p>
             </div>
           </div>
+          
+          <div className="qr-code-section" style={{ marginTop: '20px' }}>
+              <h3>Scan the QR code to verify this certificate</h3>
+              <QRCodeSVG value={certificateVerificationUrl} size={200} />
+            </div>
+
 
           <button onClick={handleDownload}>Download Certificate as PDF</button>
           <button onClick={handleVerify} className={`verify-button ${verificationStatus}`}>Verify Certificate</button>
@@ -174,9 +191,17 @@ function StudentPortal() {
               {verificationStatus === 'success' ? 'Verification Successful!' : 'Verification Failed'}
             </p>
           )}
+          
+          
         </>
       )}
+     
+
     </div>
+    <Footer/>
+    </>
+
+    
   );
 }
 

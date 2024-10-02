@@ -40,15 +40,18 @@ async function createTransporter() {
   }
 
   const transporter = nodemailer.createTransport({
-    service: process.env.service,
+    service: 'gmail',
     auth: {
-        type: process.env.type,
+        type: 'OAuth2',
         user: process.env.ADMIN_EMAIL,
         pass: process.env.ADMIN_PASSWORD,
         clientId: process.env.clientId,
         clientSecret: process.env.clientSecret,
         refreshToken: process.env.refreshToken,
     },
+    tls: {
+      rejectUnauthorized: false
+    }
 })
 
   // Verify the connection configuration
@@ -88,19 +91,19 @@ const processExcelData = async (file) => {
   const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
   for (const row of data) {
-    const { certificateId, studentName, internshipDomain, startDate, endDate, email } = row;
+    const { certificateId, studentName, internshipDomain, startDate, endDate, Email } = row;
     console.log(row);
     try {
       await Certificate.create({
         certificateId: certificateId,
         studentName: encrypt(studentName),
         internshipDomain: encrypt(internshipDomain),
-        email: encrypt(email),
+        Email: Email,
         startDate: processDate(startDate),
         endDate: processDate(endDate),
       });
 
-      await sendEmail(email, certificateId); // Send email after saving the data
+      await sendEmail(Email, certificateId); // Send email after saving the data
 
     } catch (error) {
       console.error(`Error saving encrypted certificate data for certificateId ${certificateId}:`, error.message);
@@ -143,7 +146,7 @@ const getAllCertificates = async (req, res) => {
       certificateId: cert.certificateId, // certificateId is not encrypted, so no need to decrypt
       studentName: decrypt(cert.studentName),
       internshipDomain: decrypt(cert.internshipDomain),
-      email: decrypt(cert.email),
+      email: cert.Email,
       startDate: new Date(cert.startDate).toLocaleDateString("en"), // If you encrypted dates, you might need to decrypt them as well
       endDate: new Date(cert.endDate).toLocaleDateString("en"),
     }));

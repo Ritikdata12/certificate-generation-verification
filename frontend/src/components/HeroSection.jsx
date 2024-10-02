@@ -117,6 +117,11 @@ const HeroSection = () => {
     });
   }, []);
 
+
+  const handlesubmit =()=>{
+   window.location.href = "/student"
+  }
+
   return (
     <>
       <motion.div
@@ -137,11 +142,8 @@ const HeroSection = () => {
               Suspendisse et sapien varius, pellentesque dui non.
             </p>
             <div className="job-search-form">
-              <input type="text" placeholder="Job Title or Company Name" className="job-input" />
-              <input type="text" placeholder="Locations" className="location-input" />
-              <button className="search-button">
-                <i className="fas fa-search"></i>
-              </button>
+              <button onClick={handlesubmit}>check student certificates</button>
+             
             </div>
           </div>
 

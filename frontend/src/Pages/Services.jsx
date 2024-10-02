@@ -6,46 +6,47 @@ import { fadeIn } from '../Framers';
 const Services = () => {
   const servicesData = [
     {
-      icon: '📧',
-      title: 'Lorem Ipsum',
-      description: 'Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident',
+      icon: '📤',
+      title: 'Certificate Upload',
+      description: 'Admins can upload certificate details in bulk using an Excel file, ensuring easy management of student data and certificates.',
     },
     {
-      icon: '📋',
-      title: 'Dolor Sitema',
-      description: 'Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata',
-    },
-    {
-      icon: '📊',
-      title: 'Sed ut perspiciatis',
-      description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur',
+      icon: '📝',
+      title: 'Certificate Template Design',
+      description: 'Create a customizable certificate template that dynamically populates student details for a professional presentation.',
     },
     {
       icon: '🔍',
-      title: 'Magni Dolores',
-      description: 'Excepturi sint occaecat cupiditate non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+      title: 'Certificate Verification',
+      description: 'Students and third parties can verify certificate authenticity by entering the certificate ID into the portal for instant validation.',
+    },
+    {
+      icon: '📊',
+      title: 'Admin Dashboard',
+      description: 'The admin dashboard offers real-time views of the upload status, logs, and detailed reports of certificate issuance and verification.',
+    },
+    {
+      icon: '💾',
+      title: 'PDF Generation',
+      description: 'Generate downloadable PDF certificates using libraries like pdfkit or jsPDF, allowing students to save and print their credentials.',
+    },
+    {
+      icon: '🔐',
+      title: 'Data Validation & Authentication',
+      description: 'Ensure secure access to certificate data with proper validation mechanisms and user authentication for students and admins.',
     },
     {
       icon: '💡',
-      title: 'Nemo Enim',
-      description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque',
+      title: 'Dynamic Certificate Preview',
+      description: 'Students can preview their certificates dynamically before downloading, ensuring accurate representation of their achievements.',
     },
     {
       icon: '📅',
-      title: 'Eiusmod Tempor',
-      description: 'Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi',
+      title: 'Logs & Reports',
+      description: 'Maintain detailed logs and generate reports for certificate upload history and verification attempts for audit purposes.',
     },
-    {
-        icon: '💡',
-        title: 'Nemo Enim',
-        description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque',
-      },
-      {
-        icon: '📅',
-        title: 'Eiusmod Tempor',
-        description: 'Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi',
-      },
   ];
+  
 
   return (
     <motion.div
@@ -57,7 +58,11 @@ const Services = () => {
     <section className="services-section">
       <div className="container">
         <h2>SERVICES</h2>
-        <p className="description">Laudem latine persequeris id sed, ex fabulas delectus quo. No vel partiendo abhorreant vituperatoribus, ad pro quaestio laboramus. Ei ubique vivendum pro. At ius nisl accusam lorenta zanos paradigma tridexa panatarel.</p>
+        <p className="description" style={{fontSize: "20px" , fontFamily: 'inherit' , fontStyle: 'inherit'}}>
+        Our platform offers comprehensive services for generating 
+        and verifying certificates across multiple domains, 
+        including internships, competitions, and hackathons
+        </p>
         <div className="services-grid">
           {servicesData.map((service, index) => (
             <div className="service-item" key={index}>

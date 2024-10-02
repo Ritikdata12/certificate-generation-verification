@@ -28,7 +28,7 @@ const Admintable = () => {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 150 },
-    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'username', headerName: 'username', width: 200 },
     { field: 'email', headerName: 'Email ID', width: 250 }
   ];
 

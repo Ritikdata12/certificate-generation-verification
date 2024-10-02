@@ -1,19 +1,17 @@
-
 .slick-slide {
-    margin: 0px 20px;
+    margin: 0px 10px;
 }
 
 .slick-slide img {
-    width: auto;
-    border: 3px solid rgb(107, 71, 173);
-    height: 300px;
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
 }
 
 .another{
     margin-top: 50px;
-    margin-left: 2%;
+    margin-left: 0.4px;
     width: 95%;
-    border: 2px solid black;
     height: 450px;
     overflow: hidden;
 }

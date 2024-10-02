@@ -6,15 +6,12 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-
 const UserModel1 = require('../models/Userdata'); 
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 router.use(express.json());
 router.use(express.static('public'));
-
 router.use(session({
     secret: 'your-secret-key',
     resave: false,
@@ -49,10 +46,10 @@ router.post("/user-register", async (req, res) => {
 });
 
 
-// GET route to fetch all registered users (excluding passwords)
 router.get("/user-details", async (req, res) => {
     try {
-        const users = await UserModel1.find({}, '-password'); // Exclude the password field from the response
+        console.log("user details")
+        const users = await UserModel1.find({}, '-password'); 
         res.status(200).json(users);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -72,7 +69,7 @@ router.post("/login", (req, res) => {
                             { expiresIn: "1d" }
                         );
                         res.cookie('token', token);
-                        return res.json({ status: "success" });
+                       res.status(200).json(user); // this is response.data
                     } else {
                         return res.json("password is incorrect");
                     }
@@ -92,6 +89,31 @@ router.get("/get_login", (req, res) => {
         .catch(function(err) {
             res.json(err);
         });
+});
+
+// Middleware to verify user before accessing protected routes
+const verifyuser = (req, res, next) => {
+    const token = req.cookies.token;
+    
+    if (!token) {
+        return res.json("The token is missing");
+    } else {
+        jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+            if (err) {
+                return res.json("The token is invalid"); // Token verification failed
+            } else {
+                req.email = decoded.email;
+                req.username = decoded.username;
+                next();
+            }
+        });
+    }
+};
+
+
+
+router.get('/', verifyuser, (req, res) => {
+    return res.json({ email: req.email, username: req.username });
 });
 
 module.exports = router;

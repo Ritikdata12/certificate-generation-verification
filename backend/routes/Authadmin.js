@@ -58,27 +58,27 @@ router.get("/admins-details", async (req, res) => {
 
 router.post("/login", (req, res) => {
     const { email, password } = req.body;
-    UserModel.findOne({ email: email })
-        .then(user => {
-            if (user) {
-                bcrypt.compare(password, user.password, (err, response) => {
+    UserModel.findOne({ email })
+        .then(admin => {
+            if (admin) {
+                bcrypt.compare(password, admin.password, (err, response) => {
                     if (response) {
                         const token = jwt.sign(
-                            { email: user.email, username: user.username },
+                            { email: admin.email, username: admin.username },
                             "jwt-secret-key",
                             { expiresIn: "1d" }
                         );
                         res.cookie('token', token);
-                        return res.json({ status: "success" });
+                        res.status(200).json(admin); // Success: send admin data
                     } else {
-                        return res.json("password is incorrect");
+                        res.status(401).json({ message: "Password is incorrect" }); // Handle incorrect password
                     }
                 });
             } else {
-                res.json("this email id is not registered");
+                res.status(404).json({ message: "This email is not registered" }); // Handle unregistered email
             }
         })
-        .catch(err => res.json(err));
+        .catch(err => res.status(500).json({ message: "Server error", error: err }));
 });
 
 router.get("/get_login", (req, res) => {
@@ -90,5 +90,32 @@ router.get("/get_login", (req, res) => {
             res.json(err);
         });
 });
+
+
+// Middleware to verify user before accessing protected routes
+const verifyuser = (req, res, next) => {
+    const token = req.cookies.token;
+    
+    if (!token) {
+        return res.json("The token is missing");
+    } else {
+        jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+            if (err) {
+                return res.json("The token is invalid"); // Token verification failed
+            } else {
+                req.email = decoded.email;
+                req.username = decoded.username;
+                next();
+            }
+        });
+    }
+};
+
+
+
+router.get('/', verifyuser, (req, res) => {
+    return res.json({ email: req.email, username: req.username });
+});
+
 
 module.exports = router;

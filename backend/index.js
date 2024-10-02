@@ -21,7 +21,9 @@ app.use(bodyParser.json());
 const storage = multer.memoryStorage(); 
 const upload = multer({ storage });
 
-
+app.get("/" , (req,res)=>{
+    res.send("hello server");
+})
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);

@@ -58,6 +58,10 @@ header{
   header .logo i {
     font-size: 2.2rem;
   }
+  .logo img{
+    height: 50px;
+    width: 50px;
+  }
   header .logo:hover {
     color: #fc8c05;
   }
@@ -150,6 +154,31 @@ header{
   }
   /* hamburger icon ends */
 
-  @media screen and (max-width: ) {
-    
+  .user-menu {
+    position: relative;
   }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    list-style: none;
+    display: none; /* Hidden by default */
+  }
+  
+  .dropdown li {
+    padding: 5px 0;
+  }
+  
+  .dropdown a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .user-menu:hover .dropdown {
+    display: block; /* Show dropdown on hover */
+  }
+  

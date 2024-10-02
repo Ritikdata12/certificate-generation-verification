@@ -1,17 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { IoMenu, IoClose } from 'react-icons/io5'; 
 import './Header.css';
-import { Navigate, useNavigate } from 'react-router';
+import { MdAccountCircle } from "react-icons/md";
+
+import { UserContext } from '../App';
+
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollActive, setScrollActive] = useState(false);
 
+  const { user, setUser } = useContext(UserContext);
+  const {loginType} = useContext(UserContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+ 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
-  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    setUser(null);
+    window.location.href = "/"; 
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,34 +45,63 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+  const handleClick = ()=>{
+    window.location.href = `/profile/${user.email}`
+  }
 
   return (
     <main>
-    <header className={scrollActive ? 'scrolled' : ''}>
-    <a href="/" className="logo">
-  <img src="/e-comm.svg"  alt="Logo" className="logo-icon" />
-  E-comm 
-</a>
+     <header className={scrollActive ? 'scrolled' : ''}>
+  <a href="/" className="logo">
+    <img
+      src="https://img.freepik.com/premium-vector/iso-9001-2015-certification-iso-90012015-logo-iso-9000-certification_526569-650.jpg"
+      alt="Logo"
+    />
+  </a>
 
-      <div id="menu" onClick={toggleMenu}>
-        {menuOpen ? <IoClose className="menu-icon" /> : <IoMenu className="menu-icon" />}
-      </div>
+  <div id="menu" onClick={toggleMenu}>
+    {menuOpen ? <IoClose className="menu-icon" /> : <IoMenu className="menu-icon" />}
+  </div>
 
-      <nav className={`navbar ${menuOpen ? 'nav-toggle' : ''}`}>
-        <ul>
-          <li><a className="active" href="/">Home</a></li>
-          <li> <navigate to="/job"><a href="#about">About</a></navigate></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-{/* <div className="space">
+  <nav className={`navbar ${menuOpen ? 'nav-toggle' : ''}`}>
+    <ul>
+      <li><a className="active" href="/">Home</a></li>
+      <li><a href="/About">About</a></li>
 
-</div> */}
+      {loginType === 'admin' && (
+        <li><a href="/admin">Admin</a></li>
+      )}
+
+      <li><a href="#education">Education</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="/Contactus">Contact us</a></li>
+
+      {user.email ? (
+        <li className="user-menu">
+          <a
+            style={{ fontSize: '25px', cursor: 'pointer' }}
+            onClick={toggleDropdown} 
+          >
+            <MdAccountCircle />
+            {user.username} 
+          </a>
+          {dropdownOpen && ( 
+            <ul className="dropdown">
+              <li><a onClick={handleClick}>Profile</a></li>
+              <li>
+                <a onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          )}
+        </li>
+      ) : (
+        <li><a href="/Register">Signup/Login</a></li>
+      )}
+    </ul>
+  </nav>
+</header>
 
     </main>
   );

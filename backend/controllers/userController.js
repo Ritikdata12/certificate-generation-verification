@@ -2,18 +2,33 @@ const Certificate = require('../models/Certificate');
 const { jsPDF } = require('jspdf');
 const fs = require('fs');
 const path = require('path');
+const { decrypt, encrypt } = require("../controllers/Encryption");
 
 const getCertificateById = async (req, res) => {
+  const {certificateId} = req.params;
   try {
-    const { certificateId } = req.params;
-    const certificate = await Certificate.findOne({ certificateId });
+    console.log(`Fetching certificate with ID: ${certificateId}`);
+    let certificate = await Certificate.findOne({ certificateId: (certificateId) });
 
     if (!certificate) {
+      console.log(`Certificate not found with ID: ${certificateId}`);
       return res.status(404).json({ message: 'Certificate not found' });
     }
 
+    console.log("CERTIFICATE", certificate)
+    certificate = {
+      certificateId: (certificate.certificateId),
+      studentName: decrypt(certificate.studentName),
+      internshipDomain: decrypt(certificate.internshipDomain),
+      startDate: (certificate.startDate),
+      endDate: (certificate.endDate),
+  }
+
+    console.log(`Certificate found: ${JSON.stringify(certificate)}`);
+
     res.status(200).json(certificate);
   } catch (error) {
+    console.error(`Error fetching certificate with ID ${req.params.certificateId}:`, error.message); // Ensure the ID is accessed correctly here
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -60,7 +75,42 @@ const generatePDF = async (req, res) => {
     res.status(500).json({ message: 'Error generating PDF.', error: error.message });
   }
 };
+const getUserProfile = async (req, res) => {
+  const { userEmail } = req.params;
+  try {
+    console.log(`Fetching profile information for user with email: ${userEmail}`);
 
-module.exports = { generatePDF };
+    // Fetch all certificates related to the user by Email (note the capital 'E')
+    const certificates = await Certificate.find({ Email: userEmail });
+
+    if (certificates.length === 0) {
+      return res.status(404).json({ message: 'No certificates found for this user.' });
+    }
+
+    // Decrypt the necessary fields and format the response
+    const userCertificates = certificates.map(certificate => ({
+      certificateId: certificate.certificateId,
+      studentName: decrypt(certificate.studentName),
+      internshipDomain: decrypt(certificate.internshipDomain),
+      startDate: certificate.startDate,
+      endDate: certificate.endDate,
+    }));
+
+    // You can also add more information related to the user's profile if required
+    const profileInfo = {
+      Email: userEmail,
+      certificates: userCertificates,
+      // Add any additional profile fields here
+    };
+
+    console.log(`Profile data found for user: ${userEmail}`);
+    res.status(200).json(profileInfo);
+  } catch (error) {
+    console.error(`Error fetching profile for user with email ${userEmail}:`, error.message);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+module.exports = { generatePDF, getCertificateById, getUserProfile };
 
 

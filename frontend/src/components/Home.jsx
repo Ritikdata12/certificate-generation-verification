@@ -28,13 +28,13 @@ const Home = () => {
 <HeroSection/>
     <Services/>
     <Facts/>
-    <CandT/>
+    {/* <CandT/> */}
     {/* <Compaies/> */}
     {/* <Features/> */}
    <Compaies/>
     <Testinomials/>
-    <Aboutus/>
-   <ContactFrom/>
+    {/* <Aboutus/> */}
+   {/* <ContactFrom/> */}
    <Footer/>
    {/* </motion.div> */}
    </>

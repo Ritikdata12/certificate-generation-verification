@@ -1,52 +1,59 @@
 import React from 'react'
 import './Footer.css';
+import { FaGoogle } from "react-icons/fa";
+import { FaInstagramSquare } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <>
-   <footer className="footer">
-     <div className="container">
-      <div className="rowww">
-        <div className="footer-col">
-          <h4>company</h4>
-          <ul>
-            <li><a href="#">about us</a></li>
-            <li><a href="#">our services</a></li>
-            <li><a href="#">privacy policy</a></li>
-            <li><a href="#">affiliate program</a></li>
-          </ul>
-        </div>
-        <div className="footer-col">
-          <h4>get help</h4>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">shipping</a></li>
-            <li><a href="#">returns</a></li>
-            <li><a href="#">order status</a></li>
-            <li><a href="#">payment options</a></li>
-          </ul>
-        </div>
-        <div className="footer-col">
-          <h4>online shop</h4>
-          <ul>
-            <li><a href="#">watch</a></li>
-            <li><a href="#">bag</a></li>
-            <li><a href="#">shoes</a></li>
-            <li><a href="#">dress</a></li>
-          </ul>
-        </div>
-        <div className="footer-col">
-          <h4>follow us</h4>
-          <div className="social-links">
-            <a href="#"><i className="fab fa-facebook-f"></i></a>
-            <a href="#"><i className="fab fa-twitter"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
-            <a href="#"><i className="fab fa-linkedin-in"></i></a>
+      <footer className="footer">
+        <div className="container">
+          <div className="rowww">
+            <div className="footer-col">
+              <h4>company</h4>
+              <ul>
+                <li><a href="#">about us</a></li>
+                <li><a href="#">our services</a></li>
+                <li><a href="#">privacy policy</a></li>
+                <li><a href="#">affiliate program</a></li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h4>Certificate Help</h4>
+              <ul>
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/verification">Verify Certificate</a></li>
+                <li><a href="/generate">Generate Certificate</a></li>
+                <li><a href="/status">Certificate Status</a></li>
+                <li><a href="/support">Support</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4>Our Services</h4>
+              <ul>
+                <li><a href="/generate">Certificate Generation</a></li>
+                <li><a href="/verification">Certificate Verification</a></li>
+                <li><a href="/templates">Certificate Templates</a></li>
+                <li><a href="/management">Certificate Management</a></li>
+                <li><a href="/support">Customer Support</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4>follow us</h4>
+              <div className="social-links">
+                <a href="#"><i><FaGoogle /></i></a>
+                <a href="#"><i><FaInstagramSquare /></i></a>
+                <a href="#"><i><FaFacebook /></i></a>
+                <a href="#"><i><FaLinkedin /></i></a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-     </div>
-  </footer>
+      </footer>
     </>
   );
 };

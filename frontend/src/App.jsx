@@ -1,5 +1,4 @@
-// App.jsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, createContext } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AdminDashboard from './components/AdminDashboard';
 import StudentPortal from './components/StudentPortal';
@@ -7,51 +6,67 @@ import Tables from './components/Tables';
 import Home from './components/Home';
 import Jobs from './Pages/Jobs';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css'; // Your custom CSS
+import './App.css'; 
 import Usertable from './components/data-table.jsx/Userstable';
 import Admintable from './components/data-table.jsx/Admintable';
+import Register from './Pages/Register';
+import Login from './Pages/Login';
+import ContactFrom from './components/ContactFrom';
+import Aboutus from './Pages/Aboutus';
+import Profile from './components/Profile';
+import { useParams } from 'react-router-dom';
+import Mailstable from './components/data-table.jsx/Mailstable';
 
+export const UserContext = createContext(); 
 
 function App() {
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       entries.forEach((entry) => {
-  //         if (entry.isIntersecting) {
-  //           entry.target.classList.add('animate__animated', 'animate__fadeInUp'); // Apply desired animation
-  //           observer.unobserve(entry.target); // Stop observing after animation is applied
-  //         }
-  //       });
-  //     },
-  //     {
-  //       threshold: 0.1, // Trigger animation when 10% of the component is visible
-  //     }
-  //   );
+  const [user, setUser] = useState([]);
+  const [loginType, setLoginType] = useState(''); 
 
-  //   // Observe all elements with the 'animate-on-scroll' class
-  //   const elements = document.querySelectorAll('.animate-on-scroll');
-  //   elements.forEach((element) => observer.observe(element));
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const storedLoginType = localStorage.getItem('loginType'); 
 
-  //   // Cleanup function to disconnect the observer
-  //   return () => {
-  //     elements.forEach((element) => observer.unobserve(element));
-  //   };
-  // }, []);
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    if (storedLoginType) {
+      setLoginType(storedLoginType); 
+    }
+   
+  }, [])
+  console.log(user.email);
+
+
+
+const ProfileWrapper = () => {
+  const { email } = useParams(); 
+  return <Profile encryptedEmail={email} />; 
+};
 
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/admin' element={<AdminDashboard />} />
-          <Route path='/student' element={<StudentPortal />} />
-          <Route path='/Table' element={<Tables />} />
-          <Route path='/job' element={<Jobs />} />
-          <Route path='/userdata' element={<Usertable/>}/>
-          <Route path='/admindata' element={<Admintable/>}/>
-        </Routes>
-      </div>
-    </Router>
+    <>
+    <UserContext.Provider value={{ user, setUser, loginType, setLoginType }}>
+      <Router>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/admin' element={<AdminDashboard />} />
+            <Route path='/student' element={<StudentPortal />} />
+            <Route path='/table' element={<Tables />} />
+            <Route path='/job' element={<Jobs />} />
+            <Route path='/userdata' element={<Usertable />} />
+            <Route path='/admindata' element={<Admintable />} />
+            <Route path="/Mailstable" element={<Mailstable/>}/>
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path="/contactus" element={<ContactFrom />} />    
+            <Route path="/About" element={<Aboutus />} />  
+            <Route path="/profile/:email" element={<ProfileWrapper/>}/>  
+
+          </Routes> 
+      </Router>
+    </UserContext.Provider>
+    </>
   );
 }
 

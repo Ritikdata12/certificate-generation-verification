@@ -82,7 +82,7 @@ const Tables = () => {
               '& .MuiDataGrid-columnHeader:nth-child(3)': { marginLeft: 5 },
               '& .MuiDataGrid-columnHeader:nth-child(4)': { marginLeft: 6 },
               '& .MuiDataGrid-columnHeader:nth-child(5)': { marginLeft: 6 },
-              '& .MuiDataGrid-columnHeader:nth-child(6)': { marginLeft: 6 },
+              '& .MuiDataGrid-columnHeader:nth-child(6)': { marginLeft: 4 },
               '& .MuiDataGrid-columnHeader:nth-child(7)': { marginLeft: 6 },
               '& .MuiDataGrid-columnHeader:nth-child(8)': { marginLeft: 6 },
             }}

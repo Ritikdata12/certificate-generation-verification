@@ -15,7 +15,6 @@ const Jobs = () => {
   return (
     <>
 
-    <Header/>
   
   <div className="hero">
     <Carousel activeIndex={index} onSelect={handleSelect} fade>
@@ -85,7 +84,6 @@ const Jobs = () => {
     </Carousel>
   </div>
 
-  <Footer/>
 
     </>
   )

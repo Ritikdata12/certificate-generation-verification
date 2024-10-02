@@ -3,39 +3,10 @@ const Certificate = require('../models/Certificate');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs');
-const { generatePDF } = require("../controllers/userController");
+const { getCertificateById , getUserProfile } = require("../controllers/userController");
 const { decrypt, encrypt } = require("../controllers/Encryption");
 
-
-router.get('/certificate/:certificateId', async (req, res) => {
-  const { certificateId } = req.params;
-
-  try {
-    console.log(`Fetching certificate with ID: ${certificateId}`);
-    let certificate = await Certificate.findOne({ certificateId: (certificateId) });
-
-    if (!certificate) {
-      console.log(`Certificate not found with ID: ${certificateId}`);
-      return res.status(404).json({ message: 'Certificate not found' });
-    }
-
-    console.log("CERTIFICATE", certificate)
-    certificate = {
-      certificateId: (certificate.certificateId),
-      studentName: decrypt(certificate.studentName),
-      internshipDomain: decrypt(certificate.internshipDomain),
-      startDate: (certificate.startDate),
-      endDate: (certificate.endDate),
-  }
-
-    console.log(`Certificate found: ${JSON.stringify(certificate)}`);
-
-    res.status(200).json(certificate);
-  } catch (error) {
-    console.error(`Error fetching certificate with ID ${req.params.certificateId}:`, error.message); // Ensure the ID is accessed correctly here
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-});
+router.get('/certificate/:certificateId', getCertificateById);
 
 router.get('/view/:certificateId', (req, res) => {
   const { certificateId } = req.params;
@@ -106,6 +77,8 @@ router.get('/verify/:certificateId', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
+
+router.get('/profile/:userEmail', getUserProfile);
 
 
 module.exports = router;
