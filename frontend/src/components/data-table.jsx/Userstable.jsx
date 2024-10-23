@@ -13,7 +13,7 @@ const Usertable = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/userroute/get_login');
+      const response = await axios.get('https://certificate-generation-verification-83ig.vercel.app/api/userroute/get_login');
       setTable(response.data);
       console.log(response.data);
     } catch (error) {

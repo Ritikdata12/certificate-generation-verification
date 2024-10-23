@@ -29,7 +29,7 @@ function StudentPortal() {
     setLoading(true);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
+      const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/certificate/${certificateId}`);
       const data = await response.json();
 
       setLoading(false);
@@ -80,7 +80,7 @@ function StudentPortal() {
 
     setTimeout(async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/user/verify/${certificateId}`);
+        const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/verify/${certificateId}`);
         const data = await response.json();
 
         setLoading(false);
@@ -101,7 +101,7 @@ function StudentPortal() {
     }, 5000);
   };
 
-  const certificateVerificationUrl = `http://localhost:5000/api/user/certificate/${certificateId}`;
+  const certificateVerificationUrl = `https://certificate-generation-verification-83ig.vercel.app/api/user/certificate/${certificateId}`;
 
   return (
     <>

@@ -41,7 +41,7 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/userroute/user-register', {
+      const response = await axios.post('https://certificate-generation-verification-83ig.vercel.app/api/userroute/user-register', {
         username: username,
         email: email,
         password: password,

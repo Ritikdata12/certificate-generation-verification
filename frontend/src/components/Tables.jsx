@@ -13,7 +13,7 @@ const Tables = () => {
   const fetchData = async () => {
     setLoading(true); 
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/certificates');
+      const response = await axios.get('https://certificate-generation-verification-83ig.vercel.app/api/admin/certificates');
       setTable(response.data); 
     } catch (error) {
       setError('Error fetching data'); 
@@ -28,7 +28,7 @@ const Tables = () => {
 
   const uploadData = async (newData) => {
     try {
-      await axios.post('http://localhost:5000/api/admin/upload', newData);
+      await axios.post('https://certificate-generation-verification-83ig.vercel.app/api/admin/upload', newData);
       fetchData(); 
     } catch (error) {
       console.error("Error uploading data", error); 
