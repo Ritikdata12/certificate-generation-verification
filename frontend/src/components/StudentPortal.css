@@ -3,7 +3,7 @@
     text-align: center;
     padding: 20px;
   }
-  
+
   .form input {
     padding: 8px;
     margin-right: 10px;
@@ -17,7 +17,9 @@
     border: none;
     cursor: pointer;
   }
-  
+  .forcolor{
+    color:  black;
+  }
   button:hover {
     background-color: #0056b3;
   }
@@ -70,23 +72,23 @@
     font-weight: bold;
     color: #000;
     position: absolute;
-    top: 120px; /* Adjust this according to your template */
+    top: 120px;
   }
   
   .certificate-domain {
     font-size: 18px;
     color: #000;
     position: absolute;
-    top: 140px; /* Adjust this according to your template */
+    top: 140px; 
   }
   
   .certificate-dates {
     font-size: 16px;
     color: #000;
     position: absolute;
-    top: 170px; /* Adjust this according to your template */
+    top: 170px; 
   }
-  /* StudentPortal.css */
+
 .verify-button {
   padding: 10px 20px;
   font-size: 16px;
@@ -127,16 +129,7 @@
 }
 
 
-/* .above{
-  justify-content: center;
-  border: 2px solid black;
-  margin-top: 20%;
-  text-align: center;
-  margin-left: 20%;
-} */
 
- /* Loader styles */
-/* HTML: <div class="loader"></div> */
 .loader-wrapper {
   position: fixed; /* Use fixed to make it centered in the viewport */
   top: 50%;

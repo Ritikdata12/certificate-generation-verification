@@ -20,7 +20,12 @@ const Jobs = () => {
     <Carousel activeIndex={index} onSelect={handleSelect} fade>
 
 
-          <Carousel.Item style={{  backgroundImage: `url('https://images5.alphacoders.com/708/708276.jpg')`,}}>
+          <Carousel.Item style={{  
+          backgroundImage: `url('https://www.simplilearn.com/ice9/free_resources_article_thumb/Best_Project_Management_Books.jpg')`, 
+          backgroundSize: "cover", 
+          backgroundPosition: "center", 
+          backgroundRepeat: "no-repeat",
+          }}>
             <div className="carousel-container">
               <div className="container">
                 <h2 className="animate__animated animate__fadeInDown">We are professional</h2>
@@ -30,7 +35,11 @@ const Jobs = () => {
             </div>
           </Carousel.Item>
 
-          <Carousel.Item className="carousel-item" style={{  backgroundImage: `url('https://images5.alphacoders.com/708/708276.jpg')`,}}>
+          <Carousel.Item className="carousel-item" style={{  backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4saFAVoIE3ciMdTPeP2bxEQ-PxAbj-SyutA&s`,
+         backgroundSize: "cover", 
+         backgroundPosition: "center", 
+         backgroundRepeat: "no-repeat",
+        }}>
             <div className="carousel-container">
               <div className="container">
                 <h2 className="animate__animated animate__fadeInDown">At vero eos et accusamus</h2>

@@ -41,17 +41,14 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
 />
 
-  <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  <title>Vite + React</title>
+  <title>Welcome to our site</title>
 </head>
 <body>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 
-  <!-- Add a script for animation triggering -->
   <script>
-    // Function to add animation class when the element is in view
     document.addEventListener('DOMContentLoaded', function () {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -63,7 +60,6 @@
         threshold: 0.1
       });
 
-      // Observe all elements with 'animate-on-load' class
       document.querySelectorAll('.animate-on-load').forEach(element => {
         observer.observe(element);
       });

@@ -62,3 +62,9 @@
           calc(1*100%/3) calc(1*100%/3), calc(2*100%/3) calc(1*100%/3), calc(1*100%/3) calc(2*100%/3), calc(2*100%/3) calc(2*100%/3)}
   }
   
+
+.error-message {
+      color: red;
+      text-align: center;
+      margin-top: 20px;
+    }

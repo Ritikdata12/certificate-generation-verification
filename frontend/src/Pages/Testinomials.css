@@ -17,9 +17,12 @@ body {
     width: 100%;
     justify-content: center;
     text-align: center;
-    background-image: url('https://images5.alphacoders.com/708/708276.jpg');
-    opacity: 0.8;
-    border: 2px solid black;
+    background-image: url('https://www.pixelstalk.net/wp-content/uploads/2016/10/HD-Blank-Wallpaper.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+    /* border: 2px solid black; */
     background-repeat: no-repeat;
 }
 .slider {
@@ -125,9 +128,15 @@ body {
   text-transform: uppercase;
 }
 .slider__txt {
-  color: #999;
+  color: white;
+  font-weight: 5000;
+  font-size: 20px;
   margin-bottom: 3rem;
   max-width: 300px;
+}
+
+.container h2{
+  color: white;
 }
 
 @-webkit-keyframes check {

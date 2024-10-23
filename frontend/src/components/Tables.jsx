@@ -11,20 +11,29 @@ const Tables = () => {
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
+    setLoading(true); 
     try {
       const response = await axios.get('http://localhost:5000/api/admin/certificates');
-      setTable(response.data);
-      console.log(response.data);
+      setTable(response.data); 
     } catch (error) {
-      setError('Error fetching data');
+      setError('Error fetching data'); 
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData(); 
+  }, []); 
+
+  const uploadData = async (newData) => {
+    try {
+      await axios.post('http://localhost:5000/api/admin/upload', newData);
+      fetchData(); 
+    } catch (error) {
+      console.error("Error uploading data", error); 
+    }
+  };
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 150 },
@@ -36,59 +45,60 @@ const Tables = () => {
   ];
 
   return (
-      <Box
-        sx={{
-          height: 1000,
-          minWidth: '80%',
-          borderRadius: '8px',
-          border: "0px",
-          overflow: 'auto',
-        }}
-      >
-        {loading ? (
-          <div className="loader">
-          </div>
-        ) : error ? (
-          <p className="error-message">{error}</p>
-        ) : (
-          <DataGrid
-            rows={table.map((row, index) => ({ ...row, id: index }))}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 55,
-                },
+    <Box
+      sx={{
+        height: 1000,
+        minWidth: '80%',
+        borderRadius: '8px',
+        border: "0px",
+        overflow: 'auto',
+      }}
+    >
+      {loading ? (
+        <div className="loader">
+          <CircularProgress />
+        </div>
+      ) : error ? (
+        <p className="error-message">{error}</p> 
+      ) : (
+        <DataGrid
+          rows={table.map((row, index) => ({ ...row, id: index }))} 
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 55,
               },
-            }}
-            pageSizeOptions={[55]}
-            checkboxSelection
-            disableRowSelectionOnClick
-            sx={{
-              '& .MuiDataGrid-row:hover': {
-                // Add hover styles if needed
-              },
-              '& .MuiDataGrid-cell': {
-                fontSize: '20px',
-                marginLeft: '50px',
-                padding: '10px 2px', 
-              },
-              '& .MuiDataGrid-columnHeaders': {
-                display: 'flex',
-                justifyContent: 'space-evenly',
-                fontSize: '20px',
-             paddingLeft: '50px',
-              },
-              '& .MuiDataGrid-columnHeader:nth-child(3)': { marginLeft: 5 },
-              '& .MuiDataGrid-columnHeader:nth-child(4)': { marginLeft: 6 },
-              '& .MuiDataGrid-columnHeader:nth-child(5)': { marginLeft: 6 },
-              '& .MuiDataGrid-columnHeader:nth-child(6)': { marginLeft: 4 },
-              '& .MuiDataGrid-columnHeader:nth-child(7)': { marginLeft: 6 },
-              '& .MuiDataGrid-columnHeader:nth-child(8)': { marginLeft: 6 },
-            }}
-          />
-        )}
-      </Box>
+            },
+          }}
+          pageSizeOptions={[55]}
+          checkboxSelection
+          disableRowSelectionOnClick
+          sx={{
+            '& .MuiDataGrid-row:hover': {
+              backgroundColor: '#f5f5f5', 
+            },
+            '& .MuiDataGrid-cell': {
+              fontSize: '20px',
+              marginLeft: '50px',
+              padding: '10px 2px', 
+            },
+            '& .MuiDataGrid-columnHeaders': {
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              fontSize: '20px',
+              paddingLeft: '50px',
+            },
+            '& .MuiDataGrid-columnHeader:nth-child(3)': { marginLeft: 5 },
+            '& .MuiDataGrid-columnHeader:nth-child(4)': { marginLeft: 6 },
+            '& .MuiDataGrid-columnHeader:nth-child(5)': { marginLeft: 6 },
+            '& .MuiDataGrid-columnHeader:nth-child(6)': { marginLeft: 4 },
+            '& .MuiDataGrid-columnHeader:nth-child(7)': { marginLeft: 6 },
+            '& .MuiDataGrid-columnHeader:nth-child(8)': { marginLeft: 6 },
+          }}
+        />
+      )}
+    </Box>
   );
 };
 

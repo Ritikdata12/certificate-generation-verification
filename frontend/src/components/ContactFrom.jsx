@@ -104,29 +104,24 @@ import { IoIosContact } from "react-icons/io";
 import { FaMessage } from "react-icons/fa6";
 import Header from "./Header";
 import Footer from "./Footer";
-import MailTable from "./data-table.jsx/Mailstable";
 
 const ContactForm = () => {
   const form = useRef();
-  const [submittedData, setSubmittedData] = useState([]); // State to store submitted form data
 
   const sendEmail = (e) => {
     e.preventDefault();
-
-    // Send email via EmailJS
     emailjs
       .sendForm(
         "service_723edxt",
         "template_z8r7ypq",
         form.current,
-        "BGY-7Sqy1eKsOGI8H" // Replace with your user ID
+        "BGY-7Sqy1eKsOGI8H" 
       )
       .then(
         (result) => {
           console.log(result.text);
           alert("Message sent successfully!");
 
-          // Store the form data in the state after a successful email submission
           const formData = {
             name: e.target.name.value,
             email: e.target.email.value,
@@ -210,7 +205,7 @@ const ContactForm = () => {
       </div>
 
       {/* Pass the submitted form data as props to MailTable */}
-      <MailTable messages={submittedData} />
+     
 
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3514.6704529235276!2d76.81105197612736!3d28.247680501451857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d478e1d59b7fb%3A0xb1787ccb5563c223!2sBML%20Munjal%20University%20(BMU)!5e0!3m2!1sen!2sin!4v1727523707844!5m2!1sen!2sin"

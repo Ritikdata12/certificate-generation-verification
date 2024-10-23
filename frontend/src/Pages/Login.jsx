@@ -4,8 +4,9 @@ import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { UserContext } from '../App'; 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'; // Import Google OAuth
+import { jwtDecode } from "jwt-decode"; // To decode the Google JWT token
 import "./Register.css";
-
 
 const Login = () => {
   const { user , setUser, setLoginType } = useContext(UserContext);  // Access setLoginType from UserContext
@@ -44,16 +45,16 @@ const Login = () => {
 
       if (response.status === 200 && response.data) {
         const userData = response.data;
-        setUser(userData); // Set user globally
-        setLoginType(loginType);  // Set loginType globally
-        console.log('User:', userData);  // Log user to the console
-        console.log('LoginType:', loginType);  // Log loginType to the console
+        setUser(userData); 
+        setLoginType(loginType); 
+        console.log('User:', userData);  
+        console.log('LoginType:', loginType); 
 
         localStorage.setItem('user', JSON.stringify(userData)); 
-        localStorage.setItem('loginType', loginType);  // Fixed typo
+        localStorage.setItem('loginType', loginType); 
 
         alert('Login successful');
-        // window.location.href = "/";  // Redirect to home page
+        window.location.href = "/";  
       } else {
         setErrorMessage('Login failed');
       }
@@ -63,13 +64,43 @@ const Login = () => {
     }
   };
 
+  // Google Login Success Handler
+  const handleGoogleSuccess = async (response) => {
+    const decodedToken = jwtDecode(response.credential); // Decode Google JWT token
+    console.log('Google decoded token:', decodedToken);
+    
+    try {
+      const googleLoginResponse = await axios.post('http://localhost:5000/auth/google/callback', {
+        tokenId: response.credential,  // Pass the Google token to the backend
+      });
+      
+      if (googleLoginResponse.status === 200 && googleLoginResponse.data) {
+        const userData = googleLoginResponse.data;
+        setUser(userData); // Set user globally
+        setLoginType('google'); // Set login type to Google
+        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('loginType', 'google');
+        alert('Google login successful');
+      } else {
+        setErrorMessage('Google login failed');
+      }
+    } catch (err) {
+      setErrorMessage('An error occurred during Google login: ' + err.message);
+    }
+  };
+
+  const handleGoogleFailure = (error) => {
+    console.log('Google Login Failed:', error);
+    setErrorMessage('Google Login Failed');
+  };
+
   return (
     <>
       <Header />
       <div className="cont4">
       <Container>
         <Row className="justify-content-md-center">
-          <Col md={6} style={{border: "2px solid blue" , height: "350px", background: "white"}}>
+          <Col md={6} style={{border: "2px solid blue" , height: "450px", background: "white"}}>
             <h3 className="text-center">Login</h3>
 
             {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
@@ -135,6 +166,17 @@ const Login = () => {
                 </Button>
               </div>
             </Form>
+
+            {/* <div className="text-center mt-4">
+              <h5>Or</h5>
+              <GoogleOAuthProvider clientId="244902327286-d53up5gtre5oh9ske3dkjve4u8np8b3d.apps.googleusercontent.com">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleFailure}
+                />
+              </GoogleOAuthProvider>
+            </div> */}
+
           </Col>
         </Row>
       </Container>

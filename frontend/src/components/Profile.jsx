@@ -4,6 +4,8 @@ import { Spinner, Container, Row, Col, Card, ListGroup, Alert, Button } from 're
 import Header from './Header';
 import Footer from './Footer';
 
+import "./Profile.css";
+
 const Profile = ({ encryptedEmail }) => {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,41 +48,40 @@ const Profile = ({ encryptedEmail }) => {
   return (
     <>
     <Header/>
-    <Container className="mt-5" style={{height: "auto"}}>
+    <Container fluid className="mt-5 ">
+  <Row>
+    <Col md={11} style={{ marginTop: "50px" , marginLeft: "50px" }}>
+      <h4>User Certificates</h4>
+      <br />
+      <br />
       <Row>
-       
-
-        <Col md={8} style={{marginTop: "50px"}}>
-          <h4>Certificates</h4>
-          <Row>
-            {profileData.certificates.map((certificate, index) => (
-              <Col md={6} key={index} className="mb-4">
-                <Card>
-                  <Card.Body>
-                    <Card.Title>{certificate.studentName}</Card.Title>
-                    <Card.Text>
-                      <strong>Internship Domain:</strong> {certificate.internshipDomain}
-                    </Card.Text>
-                    <Card.Text>
-                        <strong>Certificate id:</strong>{certificate.certificateId}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Start Date:</strong> {new Date(certificate.startDate).toDateString()}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>End Date:</strong> {new Date(certificate.endDate).toDateString()}
-                    </Card.Text>
-                    <Card.Text>
-                        <Button onClick={handlesubmit}>go to</Button>
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </Col>
+        {profileData.certificates.map((certificate, index) => (
+          <Col md={4} key={index} className="mb-4">
+            <Card>
+              <Card.Body>
+                <Card.Title>{certificate.studentName}</Card.Title>
+                <Card.Text>
+                  <strong>Internship Domain:</strong> {certificate.internshipDomain}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Certificate ID:</strong> {certificate.certificateId}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Start Date:</strong> {new Date(certificate.startDate).toDateString()}
+                </Card.Text>
+                <Card.Text>
+                  <strong>End Date:</strong> {new Date(certificate.endDate).toDateString()}
+                </Card.Text>
+                <Button onClick={handlesubmit}>Go to</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
       </Row>
-    </Container>
+    </Col>
+  </Row>
+</Container>
+
     <div className="space" style={{marginTop: "200px"}}>
 .
     </div>

@@ -6,7 +6,6 @@ import { fadeIn } from '../Framers';
 
 const HeroSection = () => {
   useEffect(() => {
-    // Initialize particles.js
     window.particlesJS('particles-js', {
       "particles": {
         "number": {

@@ -66,14 +66,13 @@ const Header = () => {
   <nav className={`navbar ${menuOpen ? 'nav-toggle' : ''}`}>
     <ul>
       <li><a className="active" href="/">Home</a></li>
-      <li><a href="/About">About</a></li>
+      
 
       {loginType === 'admin' && (
         <li><a href="/admin">Admin</a></li>
       )}
 
-      <li><a href="#education">Education</a></li>
-      <li><a href="#work">Work</a></li>
+  
       <li><a href="/Contactus">Contact us</a></li>
 
       {user.email ? (

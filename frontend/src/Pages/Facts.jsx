@@ -12,8 +12,8 @@ const Facts = () => {
   return (
     <section className="facts-section">
       <div className="container">
-        <h2>FACTS</h2>
-        <p className="facts-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+        <p className="forcolor">Facts And Figures</p>
+        <p className="facts-description">Set ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
         <div className="facts-grid">
           {factsData.map((fact, index) => (
             <div className="fact-item" key={index}>

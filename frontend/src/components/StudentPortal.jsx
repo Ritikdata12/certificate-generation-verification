@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
-import certificateTemplate from '../assets/certificate-template.png'; 
+import certificateTemplate from '../assets/certificate-template.png';
 import './StudentPortal.css';
 import Footer from './Footer';
 import Header from './Header';
-import {QRCodeSVG} from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 
 function StudentPortal() {
   const [certificateId, setCertificateId] = useState('');
   const [certificateDetails, setCertificateDetails] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
-  const [loading, setLoading] = useState(false); 
-  const [verificationStatus, setVerificationStatus] = useState(''); // New state for verification status
+  const [loading, setLoading] = useState(false);
+  const [verificationStatus, setVerificationStatus] = useState('');
+  const [verifying, setVerifying] = useState(false);
 
   const coordinates = {
     name: { x: 370, y: 230 },
@@ -20,28 +21,24 @@ function StudentPortal() {
     endDate: { x: 425, y: 360 },
   };
 
-  const handleInputChange = (e) => {
-    setCertificateId(e.target.value);
-  };
+  const handleInputChange = (e) => setCertificateId(e.target.value);
 
   const handleSearch = async () => {
     setErrorMessage('');
     setCertificateDetails(null);
-    setLoading(true); 
+    setLoading(true);
 
     try {
-      setTimeout(async () => {
-        const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
-        const data = await response.json();
+      const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
+      const data = await response.json();
 
-        setLoading(false); 
+      setLoading(false);
 
-        if (response.ok) {
-          setCertificateDetails(data);
-        } else {
-          setErrorMessage(data.message || 'Certificate not found.');
-        }
-      }, 3000); 
+      if (response.ok) {
+        setCertificateDetails(data);
+      } else {
+        setErrorMessage(data.message || 'Certificate not found.');
+      }
     } catch (error) {
       setLoading(false);
       setErrorMessage('Error fetching certificate details.');
@@ -49,8 +46,8 @@ function StudentPortal() {
   };
 
   const handleDownload = () => {
-    const doc = new jsPDF('landscape'); 
-    
+    const doc = new jsPDF('landscape');
+
     const img = new Image();
     img.src = certificateTemplate;
     img.onload = () => {
@@ -58,11 +55,17 @@ function StudentPortal() {
 
       if (certificateDetails) {
         doc.setFontSize(24);
-        doc.text(certificateDetails.studentName, 109, 120, { align: 'center' }); 
+        doc.text(certificateDetails.studentName, 130, 97, { align: 'center' });
         doc.setFontSize(16);
-        doc.text(certificateDetails.internshipDomain, 105, 140, { align: 'center' }); 
-        doc.text((certificateDetails.startDate), 60, 170); 
-        doc.text((certificateDetails.endDate), 145, 170); 
+        doc.text(certificateDetails.internshipDomain, 97, 132, { align: 'center' });
+        doc.text(new Date(certificateDetails.startDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long', day: 'numeric'
+        }), 95, 140);
+        doc.text(new Date(certificateDetails.endDate).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long', day: 'numeric'
+        }), 160, 140);
       }
 
       doc.save(`${certificateId}.pdf`);
@@ -70,9 +73,10 @@ function StudentPortal() {
   };
 
   const handleVerify = async () => {
-    setVerificationStatus(''); 
+    setVerificationStatus('');
     setErrorMessage('');
     setLoading(true);
+    setVerifying(true);
 
     setTimeout(async () => {
       try {
@@ -80,6 +84,7 @@ function StudentPortal() {
         const data = await response.json();
 
         setLoading(false);
+        setVerifying(false);
 
         if (response.ok) {
           setVerificationStatus('success');
@@ -89,119 +94,127 @@ function StudentPortal() {
         }
       } catch (error) {
         setLoading(false);
+        setVerifying(false);
         setVerificationStatus('failed');
         setErrorMessage('Error during verification.');
       }
-    }, 5000); 
+    }, 5000);
   };
 
-  const certificateVerificationUrl = `http://localhost:5000/api/user/certificate/${certificateId}`
-  
+  const certificateVerificationUrl = `http://localhost:5000/api/user/certificate/${certificateId}`;
+
   return (
     <>
-    <Header/>
-    <div className="App" style={{marginTop: "100px", height: "1000px" , background: "white"}}>
-      <h1>Certificate Verification</h1>
-      <div className="form">
-        <input
-          type="text"
-          placeholder="Enter Certificate ID"
-          value={certificateId}
-          onChange={handleInputChange}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-
-      {loading && (
-        <div className="loader-wrapper">
-          <div className="loader"></div>
+      <Header />
+      <div className="App" style={{ marginTop: "100px", height: "1000px", background: "white" }}>
+        <h1>Certificate Verification</h1>
+        <div className="form">
+          <input
+            type="text"
+            placeholder="Enter Certificate ID"
+            value={certificateId}
+            onChange={handleInputChange}
+          />
+          <button onClick={handleSearch}>Search</button>
         </div>
-      )}
-        
 
-      {errorMessage && <p className="error">{errorMessage}</p>}
-
-      {certificateDetails && (
-        <>
-          <div className="certificate-preview">
-            <img src={certificateTemplate} alt="Certificate Template" className="certificate-image"/>
-            <div className="certificate-overlay">
-              <p
-                className="certificate-name"
-                style={{
-                  position: 'absolute',
-                  top: `${coordinates.name.y}px`,
-                  left: `${coordinates.name.x}px`,
-                  transform: 'translateX(-50%)',
-                  fontSize: '24px',
-                  textAlign: 'center',
-                }}
-              >
-                {certificateDetails.studentName}
-              </p>
-              <p
-                className="certificate-domain"
-                style={{
-                  position: 'absolute',
-                  top: `${coordinates.domain.y}px`,
-                  left: `${coordinates.domain.x}px`,
-                  transform: 'translateX(-50%)',
-                  fontSize: '16px',
-                  textAlign: 'center',
-                }}
-              >
-                {certificateDetails.internshipDomain}
-              </p>
-              <p
-                className="certificate-dates"
-                style={{
-                  position: 'absolute',
-                  top: `${coordinates.startDate.y}px`,
-                  left: `${coordinates.startDate.x}px`,
-                  fontSize: '16px',
-                }}
-              >
-                {new Date(certificateDetails.startDate).toDateString()}
-              </p>
-              <p
-                className="certificate-dates"
-                style={{
-                  position: 'absolute',
-                  top: `${coordinates.endDate.y}px`,
-                  left: `${coordinates.endDate.x}px`,
-                  fontSize: '16px',
-                }}
-              >
-                {new Date(certificateDetails.endDate).toDateString()}
-              </p>
-            </div>
+        {loading && (
+          <div className="loader-wrapper">
+            <div className="loader"></div>
           </div>
-          
-          <div className="qr-code-section" style={{ marginTop: '20px' }}>
-              <h3>Scan the QR code to verify this certificate</h3>
-              <QRCodeSVG value={certificateVerificationUrl} size={200} />
+        )}
+
+        {errorMessage && <p className="error">{errorMessage}</p>}
+
+        {certificateDetails && (
+          <>
+            <div className="certificate-preview">
+              <img src={certificateTemplate} alt="Certificate Template" className="certificate-image" />
+              <div className="certificate-overlay">
+                <p
+                  className="certificate-name"
+                  style={{
+                    position: 'absolute',
+                    top: `${coordinates.name.y}px`,
+                    left: `${coordinates.name.x}px`,
+                    transform: 'translateX(-50%)',
+                    fontSize: '24px',
+                    textAlign: 'center',
+                  }}
+                >
+                  {certificateDetails.studentName}
+                </p>
+                <p
+                  className="certificate-domain"
+                  style={{
+                    position: 'absolute',
+                    top: `${coordinates.domain.y}px`,
+                    left: `${coordinates.domain.x}px`,
+                    transform: 'translateX(-50%)',
+                    fontSize: '16px',
+                    textAlign: 'center',
+                  }}
+                >
+                  {certificateDetails.internshipDomain}
+                </p>
+                <p
+                  className="certificate-dates"
+                  style={{
+                    position: 'absolute',
+                    top: `${coordinates.startDate.y}px`,
+                    left: `${coordinates.startDate.x}px`,
+                    fontSize: '16px',
+                  }}
+                >
+                  {new Date(certificateDetails.startDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
+                <p
+                  className="certificate-dates"
+                  style={{
+                    position: 'absolute',
+                    top: `${coordinates.endDate.y}px`,
+                    left: `${coordinates.endDate.x}px`,
+                    fontSize: '16px',
+                  }}
+                >
+                  {new Date(certificateDetails.endDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
+              </div>
+
+              <div className="qr-code-container" style={{
+                position: 'absolute', bottom: '20px', right: '20px',
+                padding: '10px', border: '1px solid #ddd', backgroundColor: 'white'
+              }}>
+                <QRCodeSVG value={certificateVerificationUrl} size={100} />
+              </div>
             </div>
 
+            <button onClick={handleDownload}>Download Certificate as PDF</button>
+            <button onClick={handleVerify} className={`verify-button ${verificationStatus}`}>Verify Certificate</button>
 
-          <button onClick={handleDownload}>Download Certificate as PDF</button>
-          <button onClick={handleVerify} className={`verify-button ${verificationStatus}`}>Verify Certificate</button>
+            <div className={`verification-progress ${verifying ? 'active' : ''}`}>
+              <div className="progress-bar"></div>
+            </div>
 
-          {verificationStatus && (
-            <p className={`verification-message ${verificationStatus}`}>
-              {verificationStatus === 'success' ? 'Verification Successful!' : 'Verification Failed'}
-            </p>
-          )}
-          
-          
-        </>
-      )}
-     
+            {verificationStatus && (
+              <p className={`verification-message ${verificationStatus}`}>
+                {verificationStatus === 'success' ? 'Verification Successful!' : 'Verification Failed'}
+              </p>
+            )}
 
-    </div>
-    <Footer/>
+          </>
+        )}
+      </div>
+      <Footer />
     </>
-
-    
   );
 }
 

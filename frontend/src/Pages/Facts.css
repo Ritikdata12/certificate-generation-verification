@@ -10,14 +10,14 @@ body {
     text-align: center;
     background-color: #f8f9fa;
     position: relative;
-    overflow: hidden; /* Ensure any overflow is hidden */
+    overflow: hidden; 
   }
   
   .container {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    z-index: 1; /* Position content above the background */
+    z-index: 1; 
   }
   
   h2 {
@@ -39,6 +39,8 @@ body {
     margin-top: 20px;
   }
   
+  
+
   .fact-item {
     background-color: #fff;
     padding: 20px;
@@ -60,25 +62,23 @@ body {
     margin: 0;
   }
   
-  /* Background styling for the main image */
   .facts-section::after {
     content: '';
     background-image: url('https://image.slidesdocs.com/responsive-images/background/navigating-the-internet-in-3d-a-laptops-web-search-journey-powerpoint-background_060d70845f__960_540.jpg');
     background-size: cover;
     background-position: center;
-    opacity: 0.2; /* Adjust opacity to make the text readable */
+    opacity: 0.2; 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Position the background image behind the content */
+    z-index: -1;
   }
   
-  /* Foreground image styling */
   .foreground-images {
     position: relative;
-    z-index: 2; /* Ensure images are above background and content */
+    z-index: 2; 
     display: flex;
     justify-content: center;
     margin-top: 40px;
@@ -89,11 +89,15 @@ body {
     width: 500px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transform: translateY(0); /* Initial position */
-    transition: transform 0.3s ease; /* Animation for hover */
+    transform: translateY(0); 
+    transition: transform 0.3s ease; 
   }
   
   .foreground-images img:hover {
-    transform: translateY(-10px); /* Lift up the image on hover */
+    transform: translateY(-10px); 
   }
   
+  .forcolor{
+    color:  black;
+    font-size: 40px;
+  }
