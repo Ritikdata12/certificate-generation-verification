@@ -43,6 +43,7 @@ router.post("/admin-register", async (req, res) => {
 
         res.status(201).json("Account created successfully");
     } catch (err) {
+        console.log(err)
         res.status(500).json({ error: err.message });
     }
 });
