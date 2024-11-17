@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './Facts.css';
 
 const Facts = () => {
@@ -9,7 +9,23 @@ const Facts = () => {
     { number: 38, label: 'Hard Workers' },
   ];
 
+    const [rotation, setRotation] = useState(0);
+  
+    useEffect(() => {
+      const handleScroll = () => {
+        const scrollY = window.scrollY;
+        setRotation(scrollY * 0.05); // Adjust the multiplier to control rotation speed
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+
   return (
+    <>
     <section className="facts-section">
       <div className="container">
         <p className="forcolor">Facts And Figures</p>
@@ -29,6 +45,47 @@ const Facts = () => {
         </div>
       </div>
     </section>
+
+
+    <div className="g_circle">
+      <div className="g_circle-content">
+        <div className="e_circle-number">
+          <img
+            src="https://grow.betterup.com/hubfs/raw_assets/public/prospection-reports/inclusiveLeadership/images/1-in-4.svg"
+            loading="eager"
+            alt=""
+          />
+        </div>
+        <p className="p_14">
+          One in four employees still don't feel a sense of belonging. Retaining talent and driving peak performance has never been more difficult. 
+        </p>
+      </div>
+      <div data-w-id="e55a1f23-6770-7e34-4f79-1e12a819e597" className="g_people-circle">
+        <div
+          className="img_outer-circle"
+          style={{ transform: `rotate(${rotation}deg)` }}
+        >
+          <img
+            src="https://grow.betterup.com/hubfs/raw_assets/public/prospection-reports/inclusiveLeadership/images/outer-circle.svg"
+            loading="eager"
+            alt=""
+            className="img_circle"
+          />
+        </div>
+        <div
+          className="img_inner-circle"
+          style={{ transform: `rotate(-${rotation}deg)` }}
+        >
+          <img
+            src="https://grow.betterup.com/hubfs/raw_assets/public/prospection-reports/inclusiveLeadership/images/inner-circle.svg"
+            loading="eager"
+            alt=""
+            className="img_circle"
+          />
+        </div>
+      </div>
+    </div>
+    </>
   );
 };
 

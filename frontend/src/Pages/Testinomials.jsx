@@ -4,7 +4,19 @@ import "./Testinomials.css";
 const Testinomials = () => {
   return (
     <>
+      
+     
   <div className="slider-container">
+  <video 
+    autoPlay 
+    muted 
+    loop 
+    playsInline 
+    className="video-background"
+  >
+    <source src="https://www.zigram.tech/wp-content/uploads/2024/08/OurStoryinNumbers.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
   <div className="slider">
     
     <input type="radio" name="slider" id="slide1" title="slide1" defaultChecked className="slider__nav" />
@@ -36,7 +48,6 @@ const Testinomials = () => {
     </div>
   </div>
 </div>
-
     </>
   )
 }

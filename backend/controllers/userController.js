@@ -19,7 +19,7 @@ const getCertificateById = async (req, res) => {
     certificate = {
       certificateId: (certificate.certificateId),
       studentName: decrypt(certificate.studentName),
-      internshipDomain: decrypt(certificate.internshipDomain),
+      Domain: decrypt(certificate.Domain),
       startDate: (certificate.startDate),
       endDate: (certificate.endDate),
   }
@@ -49,7 +49,7 @@ const generatePDF = async (req, res) => {
     doc.text("Certificate of Completion", 20, 20);
     doc.text("This is to certify that:", 20, 30);
     doc.text(certificate.studentName, 20, 40);
-    doc.text(`Has completed the ${certificate.internshipDomain} internship`, 20, 50);
+    doc.text(`Has completed the ${certificate.Domain} internship`, 20, 50);
     doc.text(`Start Date: ${certificate.startDate.toDateString()}`, 20, 60);
     doc.text(`End Date: ${certificate.endDate.toDateString()}`, 20, 70);
 
@@ -91,7 +91,7 @@ const getUserProfile = async (req, res) => {
     const userCertificates = certificates.map(certificate => ({
       certificateId: certificate.certificateId,
       studentName: decrypt(certificate.studentName),
-      internshipDomain: decrypt(certificate.internshipDomain),
+      Domain: decrypt(certificate.Domain),
       startDate: certificate.startDate,
       endDate: certificate.endDate,
     }));

@@ -29,7 +29,7 @@ function StudentPortal() {
     setLoading(true);
 
     try {
-      const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/certificate/${certificateId}`);
+      const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
       const data = await response.json();
 
       setLoading(false);
@@ -57,7 +57,7 @@ function StudentPortal() {
         doc.setFontSize(24);
         doc.text(certificateDetails.studentName, 130, 97, { align: 'center' });
         doc.setFontSize(16);
-        doc.text(certificateDetails.internshipDomain, 97, 132, { align: 'center' });
+        doc.text(certificateDetails.Domain, 97, 132, { align: 'center' });
         doc.text(new Date(certificateDetails.startDate).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long', day: 'numeric'
@@ -80,7 +80,7 @@ function StudentPortal() {
 
     setTimeout(async () => {
       try {
-        const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/verify/${certificateId}`);
+        const response = await fetch(`http://localhost:5000/api/user/verify/${certificateId}`);
         const data = await response.json();
 
         setLoading(false);
@@ -101,7 +101,7 @@ function StudentPortal() {
     }, 5000);
   };
 
-  const certificateVerificationUrl = `https://certificate-generation-verification-83ig.vercel.app/api/user/certificate/${certificateId}`;
+  const certificateVerificationUrl = `http://localhost:5000/api/user/certificate/${certificateId}`;
 
   return (
     <>
@@ -155,7 +155,7 @@ function StudentPortal() {
                     textAlign: 'center',
                   }}
                 >
-                  {certificateDetails.internshipDomain}
+                  {certificateDetails.Domain}
                 </p>
                 <p
                   className="certificate-dates"

@@ -91,13 +91,13 @@ const processExcelData = async (file) => {
   const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
 
   for (const row of data) {
-    const { certificateId, studentName, internshipDomain, startDate, endDate, Email } = row;
+    const { certificateId, studentName, Domain, startDate, endDate, Email } = row;
     console.log(row);
     try {
       await Certificate.create({
         certificateId: certificateId,
         studentName: encrypt(studentName),
-        internshipDomain: encrypt(internshipDomain),
+        Domain: encrypt(Domain),
         Email: Email,
         startDate: processDate(startDate),
         endDate: processDate(endDate),
@@ -145,7 +145,7 @@ const getAllCertificates = async (req, res) => {
     const decryptedCertificates = certificates.map((cert) => ({
       certificateId: cert.certificateId, // certificateId is not encrypted, so no need to decrypt
       studentName: decrypt(cert.studentName),
-      internshipDomain: decrypt(cert.internshipDomain),
+      Domain: decrypt(cert.Domain),
       email: cert.Email,
       startDate: new Date(cert.startDate).toLocaleDateString("en"), // If you encrypted dates, you might need to decrypt them as well
       endDate: new Date(cert.endDate).toLocaleDateString("en"),

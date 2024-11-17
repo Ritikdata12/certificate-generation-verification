@@ -101,3 +101,74 @@ body {
     color:  black;
     font-size: 40px;
   }
+
+
+  .g_circle {
+    background-color:black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 50px auto;
+    border: 2px solid black;
+    height: 1100px;
+    width: auto;
+  }
+  
+  .g_circle-content {
+    margin-bottom: 20px;
+  }
+  
+  .e_circle-number img {
+    width: 100px;
+    height: auto;
+    position: absolute;
+    margin-top: 250px;
+  }
+  
+  .p_14 {
+    position: absolute;
+    margin-top: 450px;
+    font-size: 30px;
+    max-width: 550px;
+    line-height: 1.5;
+    border: 1px solid black;
+    margin-left: -250px;
+    color: white;
+  }
+  
+  .g_people-circle {
+    position: relative;
+    width: 1000px;
+    height: 1000px;
+  }
+  
+  .img_outer-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease-out;
+  }
+  
+  .img_inner-circle {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    right: 50px;
+    bottom: 50px;
+    margin: auto;
+    width: 80%;
+    height: 80%;
+    transition: transform 0.2s ease-out;
+  }
+  
+  .img_circle {
+    width: 100%;
+    height: 100%;
+  }
+  

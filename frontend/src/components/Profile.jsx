@@ -14,7 +14,7 @@ const Profile = ({ encryptedEmail }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`https://certificate-generation-verification-83ig.vercel.app/api/user/profile/${encryptedEmail}`);
+        const response = await axios.get(`http://localhost:5000/api/user/profile/${encryptedEmail}`);
         setProfileData(response.data);
         setLoading(false);
       } catch (error) {
@@ -61,7 +61,7 @@ const Profile = ({ encryptedEmail }) => {
               <Card.Body>
                 <Card.Title>{certificate.studentName}</Card.Title>
                 <Card.Text>
-                  <strong>Internship Domain:</strong> {certificate.internshipDomain}
+                  <strong>Internship Domain:</strong> {certificate.Domain}
                 </Card.Text>
                 <Card.Text>
                   <strong>Certificate ID:</strong> {certificate.certificateId}

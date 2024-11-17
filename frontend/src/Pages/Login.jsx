@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'; // Import Google OAuth
 import { jwtDecode } from "jwt-decode"; // To decode the Google JWT token
-import "./Register.css";
+
 
 const Login = () => {
   const { user , setUser, setLoginType } = useContext(UserContext);  // Access setLoginType from UserContext
@@ -17,6 +17,7 @@ const Login = () => {
   const [loginType, setLocalLoginType] = useState('admin');  // use camelCase here too
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 
   const validateForm = () => {
     if (!emailRegex.test(email)) {
@@ -35,8 +36,8 @@ const Login = () => {
 
     try {
       const url = loginType === 'user'
-        ? 'https://certificate-generation-verification-83ig.vercel.app/api/userroute/login'
-        : 'https://certificate-generation-verification-83ig.vercel.app/api/adminroute/login';
+        ? 'http://localhost:5000/api/userroute/login'
+        : 'http://localhost:5000/api/adminroute/login';
 
       const response = await axios.post(url, {
         email,
@@ -64,20 +65,19 @@ const Login = () => {
     }
   };
 
-  // Google Login Success Handler
   const handleGoogleSuccess = async (response) => {
-    const decodedToken = jwtDecode(response.credential); // Decode Google JWT token
+    const decodedToken = jwtDecode(response.credential); 
     console.log('Google decoded token:', decodedToken);
     
     try {
       const googleLoginResponse = await axios.post('https://certificate-generation-verification-83ig.vercel.app/auth/google/callback', {
-        tokenId: response.credential,  // Pass the Google token to the backend
+        tokenId: response.credential,  
       });
       
       if (googleLoginResponse.status === 200 && googleLoginResponse.data) {
         const userData = googleLoginResponse.data;
-        setUser(userData); // Set user globally
-        setLoginType('google'); // Set login type to Google
+        setUser(userData); 
+        setLoginType('google'); 
         localStorage.setItem('user', JSON.stringify(userData));
         localStorage.setItem('loginType', 'google');
         alert('Google login successful');
@@ -128,7 +128,6 @@ const Login = () => {
                 />
               </Form.Group>
 
-              {/* Radio buttons for login type */}
               <Form.Group className="mb-3">
                 <Form.Check 
                   type="radio" 
@@ -167,15 +166,7 @@ const Login = () => {
               </div>
             </Form>
 
-            {/* <div className="text-center mt-4">
-              <h5>Or</h5>
-              <GoogleOAuthProvider clientId="244902327286-d53up5gtre5oh9ske3dkjve4u8np8b3d.apps.googleusercontent.com">
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccess}
-                  onError={handleGoogleFailure}
-                />
-              </GoogleOAuthProvider>
-            </div> */}
+            
 
           </Col>
         </Row>

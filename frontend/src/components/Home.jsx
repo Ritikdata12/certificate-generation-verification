@@ -7,6 +7,7 @@ import Services from '../Pages/Services'
 import Facts from '../Pages/Facts'
 import CandT from '../Pages/CandT'
 import Testinomials from '../Pages/Testinomials'
+import Video from "../Pages/Video";
 
 import {motion } from "framer-motion"
 import { fadeIn } from '../Framers'
@@ -32,6 +33,7 @@ const Home = () => {
     {/* <Compaies/> */}
     {/* <Features/> */}
    <Compaies/>
+   <Video/>
     <Testinomials/>
     {/* <Aboutus/> */}
    {/* <ContactFrom/> */}

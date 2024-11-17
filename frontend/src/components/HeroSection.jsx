@@ -134,11 +134,11 @@ const HeroSection = () => {
       <div className="hero-section">
         <div className="job-search">
           <div className="job-search-content">
-            <h1 className='hh'>Find the <br /> <span className='hh'>job that fits your life</span></h1>
+            <h1 className='hh'>Empowering Trust<br /> <span className='hh'>Find you Certificates</span></h1>
             <p>
-              Aliquam vestibulum cursus felis. In iaculis iaculis sapien ac condimentum.
-              Vestibulum congue posuere lacus, id tincidunt nisi porta sit amet.
-              Suspendisse et sapien varius, pellentesque dui non.
+            Streamline the creation and verification of credentials with our all-in-one Certificate 
+            Generation and Verification platform. From secure issuance to real-time validation, 
+            our solution ensures the authenticity of each certificate, enhancing trust and credibility.
             </p>
             <div className="job-search-form">
               <button onClick={handlesubmit}>check student certificates</button>

@@ -13,11 +13,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  googleId: {   // This will store Google OAuth user ID
-    type: String,
-    unique: true,
-    sparse: true  // Optional field (can be null)
-  }
+  
  
 }, { timestamps: true });
 

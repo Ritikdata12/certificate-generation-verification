@@ -3,9 +3,6 @@ import React from 'react'
 const CandT = () => {
   return (
    <>
-    
-   
-
     <div id="team">
       <div className="container" data-aos="fade-up">
         <div className="section-header">
@@ -91,7 +88,6 @@ const CandT = () => {
 
       </div>
     </div>
-    {/* <!-- End Team Section --> */}
 
 
    </>
