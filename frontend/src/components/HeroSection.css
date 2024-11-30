@@ -24,6 +24,7 @@ body {
     background-color: transparent; 
     z-index: 1; 
   }
+  
   .job-search {
     display: flex;
     align-items: center;
@@ -33,6 +34,8 @@ body {
     border-radius: 8px;
     flex-wrap: wrap;
   }
+
+  
   
   .job-search-content {
     flex: 1;
@@ -60,15 +63,14 @@ body {
   
   .job-search-content p {
     color: black;
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    font-weight: 400;
+    font-size: 20px;
+    font-family:  Arial;
+    font-weight: 200;
 
   }
   
   .job-search-form {
     display: flex;
-    /* align-items: center; */
     gap: 10px;
   }
   

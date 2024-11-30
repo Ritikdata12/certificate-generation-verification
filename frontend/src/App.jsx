@@ -16,6 +16,9 @@ import Aboutus from './Pages/Aboutus';
 import Profile from './components/Profile';
 import { useParams } from 'react-router-dom';
 import Mailstable from './components/data-table.jsx/Mailstable';
+import CertificatePageparam from './components/CertificatePageparam';
+
+import Talkio from './components/Talkio';
 
 export const UserContext = createContext(); 
 
@@ -36,8 +39,6 @@ function App() {
    
   }, [])
   console.log(user.email);
-
-
 
 const ProfileWrapper = () => {
   const { email } = useParams(); 
@@ -62,6 +63,8 @@ const ProfileWrapper = () => {
             <Route path="/contactus" element={<ContactFrom />} />    
             <Route path="/About" element={<Aboutus />} />  
             <Route path="/profile/:email" element={<ProfileWrapper/>}/>  
+            <Route path='/certificate/:certificateId' element={<CertificatePageparam/>}/>
+            <Route path='/talkio' element={<Talkio/>}/>
 
 
           </Routes> 

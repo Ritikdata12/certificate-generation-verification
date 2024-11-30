@@ -1,0 +1,111 @@
+/* Profile.css */
+
+/* Background for the Profile Page */
+.profile-page {
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Modern purple-blue gradient */
+    min-height: 100vh;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  /* Loading Spinner Centering */
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #6a11cb, #2575fc); /* Matches page background */
+  }
+  
+  /* Card Styling */
+  .profile-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    padding: 20px;
+  }
+  
+  .profile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Card Title Styling */
+  .profile-card-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  /* Card Content Styling */
+  .profile-card p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  /* Button Styling */
+  .profile-card-button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .profile-card-button:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Typography */
+  h2 {
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Responsive Grid Layout for Cards */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .col {
+    flex: 1 1 calc(33.333% - 20px); /* 3 cards per row */
+    max-width: calc(33.333% - 20px);
+  }
+  
+  @media (max-width: 1024px) {
+    .col {
+      flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+      max-width: calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .col {
+      flex: 1 1 100%; /* 1 card per row */
+      max-width: 100%;
+    }
+  }
+  

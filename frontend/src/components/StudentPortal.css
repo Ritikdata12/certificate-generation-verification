@@ -1,93 +1,101 @@
 .App {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-  }
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #6a11cb, #2575fc); /* Modern purple-blue gradient */
+}
 
-  .form input {
-    padding: 8px;
-    margin-right: 10px;
-    width: 300px;
-  }
-  
-  button {
-    padding: 8px 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  .forcolor{
-    color:  black;
-  }
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  .certificate-details {
-    margin-top: 20px;
-    text-align: left;
-    display: inline-block;
-    background: #f0f0f0;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .certificate-details p {
-    margin: 10px 0;
-  }
-  
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
-  
-  .certificate-preview {
-    position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin: 20px auto;
-  }
-  
-  .certificate-image {
-    width: 100%;
-    height: auto;
-  }
-  
-  .certificate-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .certificate-name {
-    font-size: 24px;
-    font-weight: bold;
-    color: #000;
-    position: absolute;
-    top: 120px;
-  }
-  
-  .certificate-domain {
-    font-size: 18px;
-    color: #000;
-    position: absolute;
-    top: 140px; 
-  }
-  
-  .certificate-dates {
-    font-size: 16px;
-    color: #000;
-    position: absolute;
-    top: 170px; 
-  }
+body {
+  transition: background-image 0.5s ease-in-out;
+}
+
+.form input {
+  padding: 8px;
+  margin-right: 10px;
+  width: 300px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.forcolor {
+  color: black;
+}
+
+.certificate-details {
+  margin-top: 20px;
+  text-align: left;
+  display: inline-block;
+  background: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.certificate-details p {
+  margin: 10px 0;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.certificate-preview {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.certificate-image {
+  width: 100%;
+  height: auto;
+}
+
+.certificate-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.certificate-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  position: absolute;
+  font-family: Arial, sans-serif;
+  top: 120px;
+}
+
+.certificate-domain {
+  font-size: 18px;
+  position: absolute;
+  top: 140px;
+  font-family: Arial, sans-serif;
+}
+
+.certificate-dates {
+  font-size: 16px;
+  position: absolute;
+  top: 170px;
+  font-family: Arial, sans-serif;
+}
 
 .verify-button {
   padding: 10px 20px;
@@ -116,22 +124,52 @@
   color: red;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.animation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+body {
+  z-index: 999;
+  background: none;
+}
 
+.animation-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
+
 
 
 
 .loader-wrapper {
-  position: fixed; /* Use fixed to make it centered in the viewport */
+  position: fixed; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -140,7 +178,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  z-index: 9999; /* Ensures it is above other elements */
+  z-index: 9999; 
 }
 
 .loader {

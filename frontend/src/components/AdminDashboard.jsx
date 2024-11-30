@@ -50,20 +50,20 @@ function AdminDashboard() {
 
         <form onSubmit={uploadFile} style={{ width: "100%", flexFlow: "column", display: "flex", alignItems: "center" }}>
           <div className='input-box' onClick={() => inputRef.current.click()} style={{ cursor: 'pointer', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '5px' }}>
-            {fileName || 'Upload File'} {/* Show the file name if a file is selected */}
+            {fileName || 'Upload File'} 
           </div>
           <input hidden ref={inputRef} type="file" onChange={handleFileChange} />
           
           <div style={{ marginTop: '20px' }}>
-            <button type="submit" disabled={isUploading}> {/* Disable the button while uploading */}
-              {isUploading ? 'Uploading...' : 'Upload File'} {/* Change text based on uploading state */}
-            </button>
+            <button type="submit" disabled={isUploading}> 
+              {isUploading ? 'Uploading...' : 'Upload File'} 
+              </button>
           </div>
         </form>
 
         {isUploading && (
           <div className="loader-wrapper">
-            <div className="loader"></div> {/* Basic loader style */}
+            <div className="loader"></div>
           </div>
         )}
 

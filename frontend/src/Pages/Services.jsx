@@ -58,7 +58,7 @@ const Services = () => {
     <section className="services-section">
       <div className="container">
         <h2>SERVICES</h2>
-        <p className="description" style={{fontSize: "20px" , fontFamily: 'inherit' , fontStyle: 'inherit'}}>
+        <p className="description" >
         Our platform offers comprehensive services for generating 
         and verifying certificates across multiple domains, 
         including internships, competitions, and hackathons
@@ -68,7 +68,7 @@ const Services = () => {
             <div className="service-item" key={index}>
               <div className="service-icon">{service.icon}</div>
               <h3>{service.title}</h3>
-              <p>{service.description}</p>
+              <p className="service-desc">{service.description}</p>
             </div>
           ))}
         </div>

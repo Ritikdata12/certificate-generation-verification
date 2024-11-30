@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
-import certificateTemplate from '../assets/certificate-template.png';
+import certificateTemplate from '../assets/cert-temp.png';
+import animation from "../assets/animation.mp4";
 import './StudentPortal.css';
 import Footer from './Footer';
 import Header from './Header';
@@ -13,13 +14,26 @@ function StudentPortal() {
   const [loading, setLoading] = useState(false);
   const [verificationStatus, setVerificationStatus] = useState('');
   const [verifying, setVerifying] = useState(false);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const [uniqueId, setUniqueId] = useState('');
 
   const coordinates = {
     name: { x: 370, y: 230 },
-    domain: { x: 250, y: 338 },
+    domain: { x: 300, y: 338 },
     startDate: { x: 255, y: 360 },
     endDate: { x: 425, y: 360 },
+    uniqueId: { x: 50, y: 50 }, 
+
   };
+    const generateUniqueId = () => {
+      return [...Array(16)]
+        .map(() => Math.random().toString(36)[2])
+        .join('');
+    };
+  
+    useEffect(() => {
+      setUniqueId(generateUniqueId());
+    }, []);
 
   const handleInputChange = (e) => setCertificateId(e.target.value);
 
@@ -31,11 +45,14 @@ function StudentPortal() {
     try {
       const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
       const data = await response.json();
-
+    
       setLoading(false);
-
+    
       if (response.ok) {
         setCertificateDetails(data);
+        setShowAnimation(true); 
+        setTimeout(() => setShowAnimation(false), 2000); 
+        setErrorMessage(''); 
       } else {
         setErrorMessage(data.message || 'Certificate not found.');
       }
@@ -106,7 +123,7 @@ function StudentPortal() {
   return (
     <>
       <Header />
-      <div className="App" style={{ marginTop: "100px", height: "1000px", background: "white" }}>
+      <div className="App" style={{ marginTop: "100px", height: "1000px" }}>
         <h1>Certificate Verification</h1>
         <div className="form">
           <input
@@ -126,11 +143,33 @@ function StudentPortal() {
 
         {errorMessage && <p className="error">{errorMessage}</p>}
 
+        {showAnimation && (
+  <div className="animation-overlay">
+    <img 
+      src="https://i.pinimg.com/originals/78/3c/bd/783cbd26daebf1821ae18f72894ec3a8.gif" 
+      alt="Animation" 
+      className="animation-image" 
+    />
+  </div>
+)}
+
         {certificateDetails && (
           <>
             <div className="certificate-preview">
               <img src={certificateTemplate} alt="Certificate Template" className="certificate-image" />
               <div className="certificate-overlay">
+              <p
+                  className="certificate-id"
+                  style={{
+                    position: 'absolute',
+                    top: `${coordinates.uniqueId.y}px`,
+                    left: `${coordinates.uniqueId.x}px`,
+                    fontSize: '12px',
+                  }}
+                >
+                  Certificate ID: {uniqueId}
+                </p>
+
                 <p
                   className="certificate-name"
                   style={{
@@ -196,7 +235,7 @@ function StudentPortal() {
                 <QRCodeSVG value={certificateVerificationUrl} size={100} />
               </div>
             </div>
-
+                
             <button onClick={handleDownload}>Download Certificate as PDF</button>
             <button onClick={handleVerify} className={`verify-button ${verificationStatus}`}>Verify Certificate</button>
 

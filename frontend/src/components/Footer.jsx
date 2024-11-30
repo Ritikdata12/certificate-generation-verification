@@ -4,6 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import Talkio from './Talkio';
 
 const Footer = () => {
   return (
@@ -53,6 +54,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
+        <Talkio/>
       </footer>
     </>
   );

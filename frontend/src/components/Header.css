@@ -55,6 +55,9 @@ header{
     text-decoration: none;
     color: #0E2431;
   }
+  .logoimg{
+    border-radius: 30%
+  }
   header .logo i {
     font-size: 2.2rem;
   }
@@ -81,12 +84,16 @@ header{
     text-decoration: none;
     letter-spacing: 0.04rem;
   }
+  
   header .navbar ul li a.active,
-  header .navbar ul li a:hover{
-    color: #011aff;
-    border-bottom: .2rem solid #011aff;
-    padding: .5rem 0;
-  }
+header .navbar ul li a:hover {
+  color: #011aff;
+  border-bottom: 0.2rem solid #011aff;
+  padding-bottom: 0.2rem;
+  transition: all 0.3s ease;
+}
+
+
   /* navbar ends */
   
   /* hamburger icon starts*/
