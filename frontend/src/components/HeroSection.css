@@ -42,7 +42,6 @@ body {
     max-width: 40%;
     padding-right: 20px;
     margin-left: 10%;
-    background: white;
     opacity: 1;
     font-weight: 400;
 
@@ -52,17 +51,17 @@ body {
     font-size: 4rem; 
     font-weight: 700;
     line-height: 1.2;
-    color: #333;
+    color: white;
     margin-bottom: 1rem;
 
   }
   
   .job-search-content h1 span {
-    color: #6c63ff;
+    color: white;
   }
   
   .job-search-content p {
-    color: black;
+    color: white;
     font-size: 20px;
     font-family:  Arial;
     font-weight: 200;

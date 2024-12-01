@@ -45,7 +45,7 @@ function AdminDashboard() {
   return (
     <>
       <Header />
-      <div style={{ width: "100%", minHeight: "100vh", overflowY: 'auto', padding: '20px', marginTop: '100px', backgroundColor: "white" }}>
+      <div style={{ width: "100%", minHeight: "100vh", overflowY: 'auto', padding: '20px', marginTop: '100px'}} className='admindash'>
         <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>Admin Dashboard</h2>
 
         <form onSubmit={uploadFile} style={{ width: "100%", flexFlow: "column", display: "flex", alignItems: "center" }}>

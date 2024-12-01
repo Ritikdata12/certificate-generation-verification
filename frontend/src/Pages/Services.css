@@ -3,7 +3,6 @@
     height: auto;
     padding: 50px 20px;
     text-align: center;
-    background-color: #ffffff;
 
   }
   
@@ -20,7 +19,7 @@
   }
   
   .description {
-    color: #666;
+    color: white;
     max-width: 1000px;
     margin: 0 auto 40px;
     font-size: 30px;

@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import "./Register.css";
 
-
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -21,15 +20,11 @@ const Register = () => {
       setErrorMessage('Username must be 3-16 characters long and can only contain letters, numbers, and underscores.');
       return false;
     }
-
     if (!emailRegex.test(email)) {
       setErrorMessage('Please enter a valid email address.');
       return false;
     }
-
-   
-
-    setErrorMessage(''); 
+    setErrorMessage('');
     return true;
   };
 
@@ -49,7 +44,7 @@ const Register = () => {
 
       if (response.status === 201) {
         setSuccessMessage('Registration successful!');
-        setErrorMessage(''); 
+        setErrorMessage('');
       } else {
         setErrorMessage('Registration failed, please try again.');
       }
@@ -65,72 +60,63 @@ const Register = () => {
 
   return (
     <>
-    <Header/>
-    <div className="cont4">
-      <Container>
-        <Row className="justify-content-md-center">
-          <Col md={6} style={{border: "2px solid blue" , height: "350px", background: "white"}}>
-            <h3 className="text-center">Register</h3>
-
-            {successMessage && <Alert variant="success">{successMessage}</Alert>}
-
-            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-
-            <Form onSubmit={handleSubmit}>
-  <Form.Group controlId="formUsername" className="mb-3">
-    <Form.Label>Username</Form.Label>
-    <Form.Control
-      type="text"
-      name="username"
-      value={username}
-      onChange={(e) => setUsername(e.target.value)}
-      placeholder="Enter username"
-    />
-  </Form.Group>
-
-  <Form.Group controlId="formEmail" className="mb-3">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control
-      type="email"
-      name="email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      placeholder="Enter email"
-    />
-  </Form.Group>
-
-  <Form.Group controlId="formPassword" className="mb-3">
-    <Form.Label>Password</Form.Label>
-    <Form.Control
-      type="password"
-      name="password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      placeholder="Enter password"
-    />
-  </Form.Group>
-
-  <div className="d-flex justify-content-between">
-    <Button variant="primary" type="submit" className="w-50">
-      Register
-    </Button>
-
-    <Button
-      variant="secondary"
-      className="w-50 ms-3"
-      onClick={() => window.location.href = "/login"}
-    >
-      Login
-    </Button>
-  </div>
-</Form>
-
-          </Col>
-        </Row>
-      </Container>
+      <Header />
+      <div className="register-container">
+        <Container>
+          <Row className="justify-content-center">
+            <Col md={6} className="form-box">
+              <h3 className="text-center">Register</h3>
+              {successMessage && <Alert variant="success">{successMessage}</Alert>}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formUsername" className="mb-3">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Enter username"
+                  />
+                </Form.Group>
+                <Form.Group controlId="formEmail" className="mb-3">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter email"
+                  />
+                </Form.Group>
+                <Form.Group controlId="formPassword" className="mb-3">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password"
+                  />
+                </Form.Group>
+                <div className="d-flex justify-content-between">
+                  <Button variant="primary" type="submit" className="w-50 register-btn">
+                    Register
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    className="w-50 ms-3 login-btn"
+                    onClick={() => window.location.href = "/login"}
+                  >
+                    Login
+                  </Button>
+                </div>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </div>
-
-      <Footer/>
+      <Footer />
     </>
   );
 };

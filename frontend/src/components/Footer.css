@@ -25,7 +25,8 @@ ul{
   list-style: none;
 }
 .footer{
-  background-color: #24262b;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+
     padding: 70px 0;
 }
 .footer-col{
@@ -54,12 +55,11 @@ ul{
   margin-bottom: 10px;
 }
 .footer-col ul li a{
-  font-size: 16px;
+  font-size: 18px;
   text-transform: capitalize;
   color: #ffffff;
   text-decoration: none;
   font-weight: 300;
-  color: #bbbbbb;
   display: block;
   transition: all 0.3s ease;
   font-family: "Arial" "sans-serif";

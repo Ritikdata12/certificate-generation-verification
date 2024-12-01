@@ -15,16 +15,16 @@
   }
   
   .sidebar span {
-    color: black;
+    color: white;
     padding: 16px;
     text-underline-offset: 4px;
-    font-size: 16px;
+    font-size: 20px;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .sidebar span:hover {
-    border: 1px solid black;
-    background-color: #555;
+    border: 0.1px solid blue;
+    background-color: light-blue;
     color: white;
     cursor: pointer;
   }

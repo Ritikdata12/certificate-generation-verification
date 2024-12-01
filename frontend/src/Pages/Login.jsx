@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google'; // Import Google OAuth
 import { jwtDecode } from "jwt-decode"; // To decode the Google JWT token
-
+import "./Register.css";
 
 const Login = () => {
   const { user , setUser, setLoginType } = useContext(UserContext);  // Access setLoginType from UserContext
@@ -97,7 +97,7 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="cont4">
+      <div className="register-container">
       <Container>
         <Row className="justify-content-md-center">
           <Col md={6} style={{border: "2px solid blue" , height: "450px", background: "white"}}>

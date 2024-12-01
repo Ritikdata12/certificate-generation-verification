@@ -76,12 +76,19 @@ const Tables = () => {
           disableRowSelectionOnClick
           sx={{
             '& .MuiDataGrid-row:hover': {
-              backgroundColor: '#f5f5f5', 
+              backgroundColor: 'light-blue', 
             },
             '& .MuiDataGrid-cell': {
               fontSize: '20px',
               marginLeft: '50px',
               padding: '10px 2px', 
+              color: 'white'
+            },
+            '& .MuiDataGrid-cell:hover': {
+              transform: 'scale(1.05)', // Slightly increase size of the cell
+              zIndex: 1, // Bring the cell to the front
+              backgroundColor: '#f5f5f5', // Optional: Change cell background on hover
+              transition: 'transform 0.2s ease, background-color 0.2s ease', // Smooth transition
             },
             '& .MuiDataGrid-columnHeaders': {
               display: 'flex',
