@@ -36,8 +36,8 @@ const Login = () => {
 
     try {
       const url = loginType === 'user'
-        ? 'http://localhost:5000/api/userroute/login'
-        : 'http://localhost:5000/api/adminroute/login';
+        ? 'https://certificate-generation-verification-83ig.vercel.app/api/userroute/login'
+        : 'https://certificate-generation-verification-83ig.vercel.app/api/adminroute/login';
 
       const response = await axios.post(url, {
         email,
