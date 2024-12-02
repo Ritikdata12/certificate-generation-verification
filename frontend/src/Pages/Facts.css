@@ -6,9 +6,9 @@ body {
 }
 
 .facts-section {
-  position: -webkit-sticky; /* For Safari */
+  position: -webkit-sticky; 
   position: sticky;
-  top: 1000; /* Adjust to ensure the element becomes sticky */
+  top: 1000; 
   padding: 50px 20px;
   text-align: center;
   background-color: #f8f9fa;
@@ -123,7 +123,6 @@ body {
 }
 
 .g_circle {
-  /* background-color: black; */
   display: flex;
   flex-direction: column;
   align-items: center;

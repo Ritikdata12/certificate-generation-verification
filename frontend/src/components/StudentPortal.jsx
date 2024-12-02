@@ -167,7 +167,7 @@ function StudentPortal() {
                     fontSize: '12px',
                   }}
                 >
-                  Certificate ID: {uniqueId}
+                  Certificate ID: {certificateId}
                 </p>
 
                 <p
