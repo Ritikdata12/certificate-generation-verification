@@ -7,8 +7,9 @@ import Footer from './Footer';
 import Header from './Header';
 import { QRCodeSVG } from 'qrcode.react';
 
-function StudentPortal() {
-  const [certificateId, setCertificateId] = useState('');
+
+function StudentPortal({ certificate_id }) {
+  const [certificateId, setCertificateId] = useState(certificate_id || "");
   const [certificateDetails, setCertificateDetails] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ function StudentPortal() {
   const [verifying, setVerifying] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
   const [uniqueId, setUniqueId] = useState('');
+
 
   const coordinates = {
     name: { x: 370, y: 230 },
@@ -37,13 +39,23 @@ function StudentPortal() {
 
   const handleInputChange = (e) => setCertificateId(e.target.value);
 
-  const handleSearch = async () => {
+  const handleSearch = async (event) => {
+    let id = null;
+    if (event) {
+      event.preventDefault()
+      const formData = new FormData(event.currentTarget)
+      id = formData.get("certificate_id")
+    } else {
+      id = certificateId;
+    }
+
     setErrorMessage('');
     setCertificateDetails(null);
     setLoading(true);
+    console.log("searchign")
 
     try {
-      const response = await fetch(`http://localhost:5000/api/user/certificate/${certificateId}`);
+      const response = await fetch(`http://localhost:5000/api/user/certificate/${id}`);
       const data = await response.json();
     
       setLoading(false);
@@ -118,22 +130,31 @@ function StudentPortal() {
     }, 5000);
   };
 
-  const certificateVerificationUrl = `http://localhost:5000/api/user/certificate/${certificateId}`;
+  const certificateVerificationUrl = `http://localhost:5173/certificate/${certificateId}`;
+
+  useEffect(() => {
+    console.log("len", certificateId.length, certificateId, certificate_id)
+    if (certificateId.length == 0) return;
+    handleSearch()
+  }, [certificateId])
 
   return (
     <>
       <Header />
       <div className="App" style={{ marginTop: "100px", height: "1000px" }}>
-        <h1>Certificate Verification</h1>
-        <div className="form">
-          <input
-            type="text"
-            placeholder="Enter Certificate ID"
-            value={certificateId}
-            onChange={handleInputChange}
-          />
-          <button onClick={handleSearch}>Search</button>
-        </div>
+
+        {certificateId.length == 0 && <>
+          <h1>Certificate Verification</h1>
+          <form onSubmit={handleSearch} className="form">
+            <input
+              type="text"
+              name="certificate_id"
+              placeholder="Enter Certificate ID"
+              />
+            <button>Search</button>
+          </form>
+          </>
+        }
 
         {loading && (
           <div className="loader-wrapper">
