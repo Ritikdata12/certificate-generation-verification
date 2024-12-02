@@ -116,7 +116,7 @@ const Profile = ({ encryptedEmail }) => {
     const fetchProfile = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/user/profile/${encryptedEmail}`
+          `https://certificate-generation-verification-83ig.vercel.app/api/user/profile/${encryptedEmail}`
         );
         setProfileData(response.data);
         setLoading(false);

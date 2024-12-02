@@ -45,6 +45,7 @@ function StudentPortal({ certificate_id }) {
       event.preventDefault()
       const formData = new FormData(event.currentTarget)
       id = formData.get("certificate_id")
+      setCertificateId(id)
     } else {
       id = certificateId;
     }
@@ -55,7 +56,7 @@ function StudentPortal({ certificate_id }) {
     console.log("searchign")
 
     try {
-      const response = await fetch(`http://localhost:5000/api/user/certificate/${id}`);
+      const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/certificate/${id}`);
       const data = await response.json();
     
       setLoading(false);
@@ -109,7 +110,7 @@ function StudentPortal({ certificate_id }) {
 
     setTimeout(async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/user/verify/${certificateId}`);
+        const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/verify/${certificateId}`);
         const data = await response.json();
 
         setLoading(false);
@@ -130,7 +131,7 @@ function StudentPortal({ certificate_id }) {
     }, 5000);
   };
 
-  const certificateVerificationUrl = `http://localhost:5173/certificate/${certificateId}`;
+  const certificateVerificationUrl = `https://certificate-generation-verification.vercel.app/certificate/${certificateId}`;
 
   useEffect(() => {
     console.log("len", certificateId.length, certificateId, certificate_id)
