@@ -18,6 +18,11 @@ function StudentPortal({ certificate_id }) {
   const [showAnimation, setShowAnimation] = useState(false);
   const [uniqueId, setUniqueId] = useState('');
 
+  const [validationPopup, setValidationPopup] = useState(false);
+  const [validationResults, setValidationResults] = useState({});
+
+
+ 
 
   const coordinates = {
     name: { x: 370, y: 230 },
@@ -27,6 +32,15 @@ function StudentPortal({ certificate_id }) {
     uniqueId: { x: 50, y: 50 }, 
 
   };
+
+  const expectedCertificateDetails = {
+    name: `${coordinates.name}`,
+    domain:`${coordinates.domain}`,
+    startDate: `${coordinates.startDate}`,
+    endDate: `${coordinates.endDate}`,
+  };
+
+
     const generateUniqueId = () => {
       return [...Array(16)]
         .map(() => Math.random().toString(36)[2])
@@ -102,34 +116,69 @@ function StudentPortal({ certificate_id }) {
     };
   };
 
-  const handleVerify = async () => {
+  // const handleVerify = async () => {
+  //   setVerificationStatus('');
+  //   setErrorMessage('');
+  //   setLoading(true);
+  //   setVerifying(true);
+
+  //   setTimeout(async () => {
+  //     try {
+  //       const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/verify/${certificateId}`);
+  //       const data = await response.json();
+
+  //       setLoading(false);
+  //       setVerifying(false);
+
+  //       if (response.ok) {
+  //         setVerificationStatus('success');
+  //       } else {
+  //         setVerificationStatus('failed');
+  //         setErrorMessage(data.message || 'Verification failed.');
+  //       }
+  //     } catch (error) {
+  //       setLoading(false);
+  //       setVerifying(false);
+  //       setVerificationStatus('failed');
+  //       setErrorMessage('Error during verification.');
+  //     }
+  //   }, 5000);
+  // };
+
+
+  const handleVerify = () => {
     setVerificationStatus('');
     setErrorMessage('');
     setLoading(true);
     setVerifying(true);
 
-    setTimeout(async () => {
-      try {
-        const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/verify/${certificateId}`);
-        const data = await response.json();
-
-        setLoading(false);
-        setVerifying(false);
-
-        if (response.ok) {
-          setVerificationStatus('success');
-        } else {
-          setVerificationStatus('failed');
-          setErrorMessage(data.message || 'Verification failed.');
-        }
-      } catch (error) {
-        setLoading(false);
-        setVerifying(false);
-        setVerificationStatus('failed');
-        setErrorMessage('Error during verification.');
-      }
-    }, 5000);
+    setTimeout(() => {
+      setLoading(false);
+      setVerifying(false);
+      validateCertificateDetails();
+    }, 2000);
   };
+
+  const validateCertificateDetails = () => {
+    if (certificateDetails) {
+      const { studentName, Domain, startDate, endDate } = certificateDetails;
+      const results = {
+        name: studentName === expectedCertificateDetails.studentName,
+        domain: Domain === expectedCertificateDetails.domain,
+        issuedBy: expectedCertificateDetails.issuedBy === 'Microsoft',
+        startDate: new Date(startDate).toISOString().split('T')[0] === expectedCertificateDetails.startDate,
+        endDate: new Date(endDate).toISOString().split('T')[0] === expectedCertificateDetails.endDate,
+      };
+
+      setValidationResults(results);
+      setValidationPopup(true);
+
+      const isVerified = Object.values(results).every((result) => result === true);
+      setVerificationStatus(isVerified ? 'success' : 'failed');
+    }
+  };
+
+  const closeValidationPopup = () => setValidationPopup(false);
 
   const certificateVerificationUrl = `https://certificate-generation-verification.vercel.app/certificate/${certificateId}`;
 
@@ -260,16 +309,36 @@ function StudentPortal({ certificate_id }) {
                 
             <button onClick={handleDownload}>Download Certificate as PDF</button>
             <button onClick={handleVerify} className={`verify-button ${verificationStatus}`}>Verify Certificate</button>
+            {validationPopup && (
+    <div className="validation-popup">
+    <div className="popup-content">
+      <h2>Verification Results</h2>
+      <ul>
+        <li>
+          <span>Issued to:</span> {expectedCertificateDetails.name ? `✔ valid` : '✘ Invalid'}
+        </li>
+        <li>
+          <span>Domain:</span> {expectedCertificateDetails.domain ? `✔ valid` : '✘ Invalid'}
+        </li>
+       
+        <li>
+          <span>Start Date:</span> {expectedCertificateDetails.startDate ? `✔valid` : '✘ Invalid'}
+        </li>
+        <li>
+          <span>End Date:</span> {expectedCertificateDetails.endDate ? `✔valid` : '✘ Invalid'}
+        </li>
+      </ul>
+      <button onClick={closeValidationPopup}>Close</button>
+    </div>
+  </div>
+  
+        )}
 
             <div className={`verification-progress ${verifying ? 'active' : ''}`}>
               <div className="progress-bar"></div>
             </div>
 
-            {verificationStatus && (
-              <p className={`verification-message ${verificationStatus}`}>
-                {verificationStatus === 'success' ? 'Verification Successful!' : 'Verification Failed'}
-              </p>
-            )}
+           
 
           </>
         )}
