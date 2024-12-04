@@ -5,6 +5,7 @@ import './StudentPortal.css';
 import Footer from './Footer';
 import Header from './Header';
 import { QRCodeSVG } from 'qrcode.react';
+import { toCanvas } from 'qrcode';
 
 function StudentPortal({ certificate_id }) {
   const [certificateId, setCertificateId] = useState(certificate_id || "");
@@ -84,42 +85,72 @@ function StudentPortal({ certificate_id }) {
     }
   };
 
+  const certificateVerificationUrl = `https://certificate-generation-verification.vercel.app/certificate/${certificateId}`;
+
   const handleDownload = () => {
     const doc = new jsPDF('landscape');
-
+  
     const img = new Image();
-    img.src = certificateTemplate;
+    img.src = certificateTemplate; // Ensure this is the certificate background image URL
     img.onload = () => {
-      doc.addImage(img, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight());
-
+      doc.addImage(
+        img,
+        'PNG',
+        0,
+        0,
+        doc.internal.pageSize.getWidth(),
+        doc.internal.pageSize.getHeight()
+      );
+  
       if (certificateDetails) {
         doc.setFontSize(18);
-        doc.text(`Certificate id:${certificateId}`, 15, 27, );
+        doc.text(`Certificate id: ${certificateId}`, 15, 27);
+  
         doc.setFontSize(24);
         doc.text(certificateDetails.studentName, 130, 105, { align: 'center' });
+  
         doc.setFontSize(16);
         doc.text(certificateDetails.Domain, 144, 135, { align: 'center' });
-        doc.text(new Date(certificateDetails.startDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long', day: 'numeric'
-        }), 90, 142);
-        doc.text(new Date(certificateDetails.endDate).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long', day: 'numeric'
-        }), 160, 142);
-        <div className="qr-code-container" style={{
-          position: 'absolute', bottom: '20px', right: '20px',
-          padding: '10px', border: '1px solid #ddd', backgroundColor: 'white'
-        }}>
-          <QRCodeSVG value={certificateVerificationUrl} size={100} />
-        </div>
-
+  
+        doc.text(
+          new Date(certificateDetails.startDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }),
+          90,
+          142
+        );
+  
+        doc.text(
+          new Date(certificateDetails.endDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }),
+          160,
+          142
+        );
+  
+        // Generate QR Code as a Canvas
+        const qrCanvas = document.createElement('canvas');
+        toCanvas(
+          qrCanvas,
+          certificateVerificationUrl, // The QR code content
+          { width: 100 }, // Set the QR code size
+          (error) => {
+            if (error) {
+              console.error(error);
+            } else {
+              const qrImage = qrCanvas.toDataURL('image/png');
+              doc.addImage(qrImage, 'PNG', 240, 150, 50, 50); // Position QR code
+              doc.save(`${certificateId}.pdf`);
+            }
+          }
+        );
       }
-
-      doc.save(`${certificateId}.pdf`);
     };
   };
-
 
   const handleVerify = () => {
     setVerificationStatus('');
@@ -156,7 +187,6 @@ function StudentPortal({ certificate_id }) {
 
   const closeValidationPopup = () => setValidationPopup(false);
 
-  const certificateVerificationUrl = `https://certificate-generation-verification.vercel.app/certificate/${certificateId}`;
 
   useEffect(() => {
     console.log("len", certificateId.length, certificateId, certificate_id)
