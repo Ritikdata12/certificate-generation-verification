@@ -308,6 +308,7 @@ function StudentPortal({ certificate_id }) {
             </div>
                 
             <button onClick={handleDownload}>Download Certificate as PDF</button>
+            <br/>
             <button onClick={handleVerify} className={`verify-button ${verificationStatus}`}>Verify Certificate</button>
             {validationPopup && (
     <div className="validation-popup">
