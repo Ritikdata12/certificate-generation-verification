@@ -13,7 +13,7 @@ const Tables = () => {
   const fetchData = async () => {
     setLoading(true); 
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/certificates');
+      const response = await axios.get('https://certificate-generation-verification-83ig.vercel.app/api/admin/certificates');
       setTable(response.data); 
     } catch (error) {
       setError('Error fetching data'); 
@@ -28,7 +28,7 @@ const Tables = () => {
 
   const uploadData = async (newData) => {
     try {
-      await axios.post('http://localhost:5000/api/admin/upload', newData);
+      await axios.post('https://certificate-generation-verification-83ig.vercel.app/api/admin/upload', newData);
       fetchData(); 
     } catch (error) {
       console.error("Error uploading data", error); 
@@ -85,16 +85,25 @@ const Tables = () => {
               color: 'white'
             },
             '& .MuiDataGrid-cell:hover': {
-              transform: 'scale(1.05)', // Slightly increase size of the cell
-              zIndex: 1, // Bring the cell to the front
-              backgroundColor: '#f5f5f5', // Optional: Change cell background on hover
-              transition: 'transform 0.2s ease, background-color 0.2s ease', // Smooth transition
+              transform: 'scale(1.05)',
+              zIndex: 1, 
+              transition: 'transform 0.2s ease, background-color 0.2s ease',
             },
             '& .MuiDataGrid-columnHeaders': {
               display: 'flex',
               justifyContent: 'space-evenly',
               fontSize: '20px',
               paddingLeft: '50px',
+            },
+            '& .MuiDataGrid-footerContainer': {
+              color: 'white', 
+              backgroundColor: 'white', 
+            },
+            '& .MuiSvgIcon-root': {
+              color: 'black', 
+            },
+            '& .MuiTablePagination-actions button': {
+              color: 'white', 
             },
             '& .MuiDataGrid-columnHeader:nth-child(3)': { marginLeft: 5 },
             '& .MuiDataGrid-columnHeader:nth-child(4)': { marginLeft: 6 },

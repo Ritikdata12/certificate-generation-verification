@@ -13,7 +13,7 @@ const Usertable = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('https://certificate-generation-verification.onrender.com/api/userroute/get_login');
+      const response = await axios.get('https://certificate-generation-verification-83ig.vercel.app/api/userroute/get_login');
       setTable(response.data);
       console.log(response.data);
     } catch (error) {
@@ -65,12 +65,12 @@ const Usertable = () => {
             disableRowSelectionOnClick
             sx={{
               '& .MuiDataGrid-row:hover': {
-                // Add hover styles if needed
               },
               '& .MuiDataGrid-cell': {
                 fontSize: '20px',
                 marginLeft: '50px',
                 padding: '10px 2px',
+                color: 'white'
               },
               '& .MuiDataGrid-columnHeaders': {
                 display: 'flex',
@@ -80,10 +80,19 @@ const Usertable = () => {
               },
               '& .MuiDataGrid-columnHeader': { 
                 marginLeft: 6 
-              }
-              // ,
-              // '& .MuiDataGrid-columnHeader:nth-child(2)' : {marginLeft : 1},
-              // '& .MuiDataGrid-columnHeader:nth-child(3)' : {marginLeft : 1},
+              },
+              '& .MuiDataGrid-footerContainer': {
+                color: 'white', 
+                backgroundColor: 'white',
+              },
+             
+              '& .MuiSvgIcon-root': {
+                color: 'black', 
+              },
+              '& .MuiTablePagination-actions button': {
+                color: 'white', 
+              },
+              
             }}
           />
         )}

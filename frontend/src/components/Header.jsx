@@ -9,7 +9,7 @@ import { UserContext } from '../App';
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollActive, setScrollActive] = useState(false);
-  const [activeLink, setActiveLink] = useState('/'); // Track active link
+  const [activeLink, setActiveLink] = useState('/'); 
 
   const { user, setUser } = useContext(UserContext);
   const { loginType } = useContext(UserContext);
@@ -31,7 +31,7 @@ const Header = () => {
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
-    setMenuOpen(false); // Close menu on mobile view
+    setMenuOpen(false); 
   };
 
   useEffect(() => {
@@ -63,11 +63,9 @@ const Header = () => {
             alt="Logo"
           />
         </a>
-
         <div id="menu" onClick={toggleMenu}>
           {menuOpen ? <IoClose className="menu-icon" /> : <IoMenu className="menu-icon" />}
         </div>
-
         <nav className={`navbar ${menuOpen ? 'nav-toggle' : ''}`}>
           <ul>
             <li>

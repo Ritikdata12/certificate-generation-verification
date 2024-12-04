@@ -29,16 +29,10 @@ const Home = () => {
 <HeroSection/>
     <Services/>
     <Facts/>
-    {/* <CandT/> */}
-    {/* <Compaies/> */}
-    {/* <Features/> */}
    <Compaies/>
    <Video/>
     <Testinomials/>
-    {/* <Aboutus/> */}
-   {/* <ContactFrom/> */}
    <Footer/>
-   {/* </motion.div> */}
    </>
   )
 }

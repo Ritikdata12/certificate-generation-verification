@@ -1,8 +1,5 @@
-/* Profile.css */
-
-/* Background for the Profile Page */
 .profile-page {
-    background: linear-gradient(to right, #6a11cb, #2575fc); /* Modern purple-blue gradient */
+    background: linear-gradient(to right, #6a11cb, #2575fc); 
     min-height: 100vh;
     padding: 50px 20px;
     display: flex;
@@ -11,16 +8,14 @@
     justify-content: flex-start;
   }
   
-  /* Loading Spinner Centering */
   .loading-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to right, #6a11cb, #2575fc); /* Matches page background */
+    background: linear-gradient(to right, #6a11cb, #2575fc); 
   }
   
-  /* Card Styling */
   .profile-card {
     background: #ffffff;
     border-radius: 20px;
@@ -35,7 +30,6 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   }
   
-  /* Card Title Styling */
   .profile-card-title {
     color: #2c3e50;
     font-size: 1.5rem;
@@ -44,7 +38,6 @@
     text-align: center;
   }
   
-  /* Card Content Styling */
   .profile-card p {
     font-size: 1rem;
     color: #555;
@@ -52,7 +45,6 @@
     margin-bottom: 15px;
   }
   
-  /* Button Styling */
   .profile-card-button {
     display: block;
     margin: 0 auto;
@@ -72,7 +64,6 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
   
-  /* Typography */
   h2 {
     color: #ffffff;
     font-family: "Poppins", sans-serif;
@@ -82,7 +73,6 @@
     text-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   }
   
-  /* Responsive Grid Layout for Cards */
   .row {
     display: flex;
     flex-wrap: wrap;
@@ -91,20 +81,20 @@
   }
   
   .col {
-    flex: 1 1 calc(33.333% - 20px); /* 3 cards per row */
+    flex: 1 1 calc(33.333% - 20px); 
     max-width: calc(33.333% - 20px);
   }
   
   @media (max-width: 1024px) {
     .col {
-      flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+      flex: 1 1 calc(50% - 20px); 
       max-width: calc(50% - 20px);
     }
   }
   
   @media (max-width: 768px) {
     .col {
-      flex: 1 1 100%; /* 1 card per row */
+      flex: 1 1 100%; 
       max-width: 100%;
     }
   }

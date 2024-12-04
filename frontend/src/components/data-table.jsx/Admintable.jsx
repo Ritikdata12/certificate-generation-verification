@@ -70,16 +70,30 @@ const Admintable = () => {
                 fontSize: '20px',
                 marginLeft: '50px',
                 padding: '10px 2px',
+                color: 'white'
               },
               '& .MuiDataGrid-columnHeaders': {
                 display: 'flex',
                 justifyContent: 'space-evenly',
                 fontSize: '20px',
-                paddingLeft: '50px',
+                paddingLeft: '30px',
               },
               '& .MuiDataGrid-columnHeader': { 
-                marginLeft: 6 
-              }
+                marginRight: 6 
+              },
+              '& .MuiDataGrid-footerContainer': {
+                color: 'white', // Changes pagination text color to white
+                backgroundColor: 'white', // Optional: Dark background for pagination
+              },
+              '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
+                // color: 'white', // Pagination label and displayed rows color
+              },
+              '& .MuiSvgIcon-root': {
+                color: 'black', // Pagination arrows color
+              },
+              '& .MuiTablePagination-actions button': {
+                color: 'white', // Pagination button colors
+              },
             }}
           />
         )}

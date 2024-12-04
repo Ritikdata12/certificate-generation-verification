@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
-import certificateTemplate from '../assets/cert-temp.png';
-import animation from "../assets/animation.mp4";
+import certificateTemplate from '../assets/cert_temp.png';
 import './StudentPortal.css';
 import Footer from './Footer';
 import Header from './Header';
@@ -21,14 +20,11 @@ function StudentPortal({ certificate_id }) {
   const [validationPopup, setValidationPopup] = useState(false);
   const [validationResults, setValidationResults] = useState({});
 
-
- 
-
   const coordinates = {
-    name: { x: 370, y: 230 },
-    domain: { x: 300, y: 338 },
-    startDate: { x: 255, y: 360 },
-    endDate: { x: 425, y: 360 },
+    name: { x: 370, y: 260 },
+    domain: { x: 385, y: 345 },
+    startDate: { x: 240, y: 370 },
+    endDate: { x: 430, y: 370 },
     uniqueId: { x: 50, y: 50 }, 
 
   };
@@ -98,52 +94,25 @@ function StudentPortal({ certificate_id }) {
       doc.addImage(img, 'PNG', 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight());
 
       if (certificateDetails) {
+        doc.setFontSize(18);
+        doc.text(`Certificate id:${certificateId}`, 15, 27, );
         doc.setFontSize(24);
-        doc.text(certificateDetails.studentName, 130, 97, { align: 'center' });
+        doc.text(certificateDetails.studentName, 130, 105, { align: 'center' });
         doc.setFontSize(16);
-        doc.text(certificateDetails.Domain, 97, 132, { align: 'center' });
+        doc.text(certificateDetails.Domain, 144, 135, { align: 'center' });
         doc.text(new Date(certificateDetails.startDate).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long', day: 'numeric'
-        }), 95, 140);
+        }), 90, 142);
         doc.text(new Date(certificateDetails.endDate).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long', day: 'numeric'
-        }), 160, 140);
+        }), 160, 142);
       }
 
       doc.save(`${certificateId}.pdf`);
     };
   };
-
-  // const handleVerify = async () => {
-  //   setVerificationStatus('');
-  //   setErrorMessage('');
-  //   setLoading(true);
-  //   setVerifying(true);
-
-  //   setTimeout(async () => {
-  //     try {
-  //       const response = await fetch(`https://certificate-generation-verification-83ig.vercel.app/api/user/verify/${certificateId}`);
-  //       const data = await response.json();
-
-  //       setLoading(false);
-  //       setVerifying(false);
-
-  //       if (response.ok) {
-  //         setVerificationStatus('success');
-  //       } else {
-  //         setVerificationStatus('failed');
-  //         setErrorMessage(data.message || 'Verification failed.');
-  //       }
-  //     } catch (error) {
-  //       setLoading(false);
-  //       setVerifying(false);
-  //       setVerificationStatus('failed');
-  //       setErrorMessage('Error during verification.');
-  //     }
-  //   }, 5000);
-  // };
 
 
   const handleVerify = () => {
@@ -165,7 +134,6 @@ function StudentPortal({ certificate_id }) {
       const results = {
         name: studentName === expectedCertificateDetails.studentName,
         domain: Domain === expectedCertificateDetails.domain,
-        issuedBy: expectedCertificateDetails.issuedBy === 'Microsoft',
         startDate: new Date(startDate).toISOString().split('T')[0] === expectedCertificateDetails.startDate,
         endDate: new Date(endDate).toISOString().split('T')[0] === expectedCertificateDetails.endDate,
       };
@@ -177,6 +145,8 @@ function StudentPortal({ certificate_id }) {
       setVerificationStatus(isVerified ? 'success' : 'failed');
     }
   };
+
+  console.log(expectedCertificateDetails.name);
 
   const closeValidationPopup = () => setValidationPopup(false);
 
@@ -235,7 +205,6 @@ function StudentPortal({ certificate_id }) {
                     position: 'absolute',
                     top: `${coordinates.uniqueId.y}px`,
                     left: `${coordinates.uniqueId.x}px`,
-                    fontSize: '12px',
                   }}
                 >
                   Certificate ID: {certificateId}
@@ -316,18 +285,39 @@ function StudentPortal({ certificate_id }) {
       <h2>Verification Results</h2>
       <ul>
         <li>
-          <span>Issued to:</span> {expectedCertificateDetails.name ? `✔ valid` : '✘ Invalid'}
+          <span>Issued to:</span> {certificateDetails.studentName ? `✔ ${certificateDetails.studentName}` : '✘ Invalid'}
         </li>
         <li>
-          <span>Domain:</span> {expectedCertificateDetails.domain ? `✔ valid` : '✘ Invalid'}
+          <span>Domain:</span> {certificateDetails.Domain ? `✔${certificateDetails.Domain}` : '✘ Invalid'}
         </li>
        
         <li>
-          <span>Start Date:</span> {expectedCertificateDetails.startDate ? `✔valid` : '✘ Invalid'}
-        </li>
-        <li>
-          <span>End Date:</span> {expectedCertificateDetails.endDate ? `✔valid` : '✘ Invalid'}
-        </li>
+  <span>Start Date:</span> 
+  {certificateDetails.startDate 
+    ? `✔ ${new Date(new Date(certificateDetails.startDate).setDate(
+        new Date(certificateDetails.startDate).getDate() 
+      )).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long', 
+        day: 'numeric'
+      })}` 
+    : '✘ Invalid'}
+</li>
+
+
+<li>
+  <span>End Date:</span> 
+  {certificateDetails.startDate 
+    ? `✔ ${new Date(new Date(certificateDetails.endDate).setDate(
+        new Date(certificateDetails.endDate).getDate() 
+      )).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long', 
+        day: 'numeric'
+      })}` 
+    : '✘ Invalid'}
+</li>
+
       </ul>
       <button onClick={closeValidationPopup}>Close</button>
     </div>
