@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
-import certificateTemplate from '../assets/cert_temp.png';
+import certificateTemplate from '../assets/certtempp.png';
 import './StudentPortal.css';
 import Footer from './Footer';
 import Header from './Header';
 import { QRCodeSVG } from 'qrcode.react';
-
 
 function StudentPortal({ certificate_id }) {
   const [certificateId, setCertificateId] = useState(certificate_id || "");
@@ -108,6 +107,13 @@ function StudentPortal({ certificate_id }) {
           year: 'numeric',
           month: 'long', day: 'numeric'
         }), 160, 142);
+        <div className="qr-code-container" style={{
+          position: 'absolute', bottom: '20px', right: '20px',
+          padding: '10px', border: '1px solid #ddd', backgroundColor: 'white'
+        }}>
+          <QRCodeSVG value={certificateVerificationUrl} size={100} />
+        </div>
+
       }
 
       doc.save(`${certificateId}.pdf`);

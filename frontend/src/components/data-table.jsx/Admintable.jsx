@@ -82,7 +82,7 @@ const Admintable = () => {
                 marginRight: 6 
               },
               '& .MuiDataGrid-footerContainer': {
-                color: 'white', // Changes pagination text color to white
+                color: 'black', // Changes pagination text color to white
                 backgroundColor: 'white', // Optional: Dark background for pagination
               },
               '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
@@ -92,7 +92,7 @@ const Admintable = () => {
                 color: 'black', // Pagination arrows color
               },
               '& .MuiTablePagination-actions button': {
-                color: 'white', // Pagination button colors
+                color: 'black', // Pagination button colors
               },
             }}
           />

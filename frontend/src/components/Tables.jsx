@@ -96,6 +96,17 @@ const Tables = () => {
               fontSize: '20px',
               paddingLeft: '50px',
             },
+            '& .MuiDataGrid-footerContainer': {
+              color: 'white', // Changes pagination text color to white
+              backgroundColor: '#121212', // Optional: Dark background for pagination
+            },
+            '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
+              color: 'white', // Pagination label and displayed rows color
+            },
+           
+            '& .MuiTablePagination-actions button': {
+              color: 'white', // Pagination button colors
+            },
             '& .MuiDataGrid-columnHeader:nth-child(3)': { marginLeft: 5 },
             '& .MuiDataGrid-columnHeader:nth-child(4)': { marginLeft: 6 },
             '& .MuiDataGrid-columnHeader:nth-child(5)': { marginLeft: 6 },
