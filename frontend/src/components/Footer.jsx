@@ -54,7 +54,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <Talkio/>
+{/*         <Talkio/> */}
       </footer>
     </>
   );
