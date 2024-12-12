@@ -28,25 +28,25 @@ router.use(passport.session());
 
 require("../config/passport");
 
-// Google login route
-router.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile', 'email']
-}));
+// // Google login route
+// router.get('/auth/google', passport.authenticate('google', {
+//     scope: ['profile', 'email']
+// }));
 
-// Google OAuth callback
-router.get('/auth/google/callback', passport.authenticate('google', {
-    failureRedirect: '/login',  // Redirect to login page on failure
-    session: true,
-}), (req, res) => {
-    const token = jwt.sign(
-        { email: req.user.email, username: req.user.username },
-        "jwt-secret-key",
-        { expiresIn: '1d' }
-    );
+// // Google OAuth callback
+// router.get('/auth/google/callback', passport.authenticate('google', {
+//     failureRedirect: '/login',  // Redirect to login page on failure
+//     session: true,
+// }), (req, res) => {
+//     const token = jwt.sign(
+//         { email: req.user.email, username: req.user.username },
+//         "jwt-secret-key",
+//         { expiresIn: '1d' }
+//     );
     
-    res.cookie('token', token);
-    res.redirect('http://localhost:5173');  // Redirect to frontend after success
-});
+//     res.cookie('token', token);
+//     res.redirect('http://localhost:5173');  // Redirect to frontend after success
+// });
 
 
 router.post("/user-register", async (req, res) => {
