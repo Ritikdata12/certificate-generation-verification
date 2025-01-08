@@ -35,3 +35,6 @@ Certify is a powerful, user-friendly Certificate Generation and Verification Sys
 | **PDF Generation** | pdfkit, jsPDF            |
 
 ---
+ ## Work Flow Diagram
+![image](https://github.com/user-attachments/assets/c1958d31-8eaa-4a1f-8e49-08f10432f382)
+
